@@ -9,6 +9,7 @@ class MainMenu extends FlxState
     var _startButton:FlxButton;
 	override public function create():Void
 	{
+		super.create();
 		_startButton = new FlxButton(0, 0, "Start", clickPlay);
 		//_startButton.loadGraphic("assets/images/custom.png");
 
@@ -25,8 +26,6 @@ class MainMenu extends FlxState
 		_startButton.y = FlxG.height * 0.8;
 
 		add(_startButton);
-
-		super.create();
 	}
 
 	override public function update(elapsed:Float):Void
