@@ -10,11 +10,19 @@ class MainMenu extends FlxState
 	override public function create():Void
 	{
 		_startButton = new FlxButton(0, 0, "Start", clickPlay);
+		//_startButton.loadGraphic("assets/images/custom.png");
+
+		_startButton.scale.set(3,3);
+		_startButton.updateHitbox();
+		
+		_startButton.label.fieldWidth = _startButton.width;
+        _startButton.label.alignment = "center";
+
+		_startButton.label.size = 20;
+		_startButton.label.offset.y -= 10;
+
 		_startButton.x = FlxG.width/2 - _startButton.width/2;
 		_startButton.y = FlxG.height * 0.8;
-		
-		// Custom graphics
-		//_startButton.loadGraphic("assets/custom.png");
 
 		add(_startButton);
 
