@@ -11,6 +11,12 @@ import SimulationState;
 
 class DeploymentState extends FlxState
 {
+    /*
+    Deployed Board will be an array of integers.
+    0 -- nothing
+    1 -- zombie
+    2 -- skeleton
+    */
 	var _zombieButton : FlxButton;
 	var _skeletonButton : FlxButton;
 	var _startButton : FlxButton;
@@ -18,10 +24,13 @@ class DeploymentState extends FlxState
 
 	var mpText : FlxText;
 
-    // Deplyment area variables
-    var board:Array<Array<Tile>>;
+    // Deployment area variables
+    var boardSprite:Array<Array<Tile>>;
+    var boardDeployment:Array<Array<Int>>;
     var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
+
+    var mouseSelectedTarget = 0;
     // End variables
 
 	override public function create():Void
@@ -33,13 +42,16 @@ class DeploymentState extends FlxState
 	}
 
     private function initDeploymentArea():Void {
-        board = new Array<Array<Tile>>();
+        boardSprite = new Array<Array<Tile>>();
+        boardDeployment = new Array<Array<Int>>;
         for (j in 0...SimulationState.BOARD_HEIGHT) {
-            board[j] = new Array<Tile>();
+            boardSprite[j] = new Array<Tile>();
+            boardDeployment[j] = new Array<Int>>;
             for (i in 0...SimulationState.BOARD_WIDTH) {
-                board[j].push(new Tile());
-                board[j][i].setPosition(deploymentBoardUpperLeftX + i * board[j][i].width, deploymentBoardUpperLeftY + j * board[j][i].height);
-                add(board[j][i]);
+                boardSprite[j].push(new Tile());
+                boardDeployment[j].push(0);
+                boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
+                add(boardSprite[j][i]);
             }
         }
     }
@@ -139,7 +151,7 @@ class DeploymentState extends FlxState
 
 	function selectZombie():Void
 	{
-		// TODO
+        mouseSelectedTarget = 1;
 	}
 
 	function selectSkeleton():Void
