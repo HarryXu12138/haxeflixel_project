@@ -8,7 +8,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 
-class Deployment extends FlxState
+class DeploymentState extends FlxState
 {
 	var _zombieButton : FlxButton;
 	var _skeletonButton : FlxButton;
