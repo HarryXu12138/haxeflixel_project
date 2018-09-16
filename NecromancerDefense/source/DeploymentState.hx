@@ -41,6 +41,8 @@ class DeploymentState extends FlxState
 		initCharSelectionMenu();
 	}
 
+    // Initialize the board sprite array
+    // Initialize the array that record the deployment result
     private function initDeploymentArea():Void {
         boardSprite = new Array<Array<Tile>>();
         boardDeployment = new Array<Array<Int>>();
@@ -56,15 +58,35 @@ class DeploymentState extends FlxState
         }
     }
 
-    private function deploy(X:Float, Y:Float) {
+    // After mouse released in (X, Y), this function will be call
+    // Record the deplyment to the array
+    private function deploy(x:Float, y:Float) {
+        for (j in 0...SimulationState.BOARD_HEIGHT) {
+            for (i in 0...SimulationState.BOARD_WIDTH) {
+                var minX = deploymentBoardUpperLeftX + i * boardSprite[j][i].width;
+                var minY = deploymentBoardUpperLeftY + j * boardSprite[j][i].height;
+                var maxX = minX + boardSprite[j][i].width;
+                var maxY = minY + boardSprite[j][i].height;
+                if (x >= minX && x < maxX && y >= minY && y < maxY) {
+                    boardDeployment[j][i] = mouseSelectedTarget;
+                    var sprite = new FlxSprite();
+                    sprite.setPosition(minX, minY);
+                    add(sprite);
+                    break;
+                }
+            }
+        }
     }
 
+    // When update frames, check the mouse status and call deploy if necessary
 	override public function update(elapsed:Float):Void
 	{
         if (mouseSelectedTarget != 0) {
+            // Right click to cancel
             if (FlxG.mouse.pressedRight) {
                 FlxG.mouse.unload();
                 mouseSelectedTarget = 0;
+            // Left click to deploy
             } else if (FlxG.mouse.justPressed) {
                 deploy(FlxG.mouse.x, FlxG.mouse.y);
                 FlxG.mouse.unload();
@@ -165,6 +187,7 @@ class DeploymentState extends FlxState
 	function selectZombie():Void
 	{
         mouseSelectedTarget = 1;
+        // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
         sprite.loadGraphic("assets/images/zombie.jpg");
 
@@ -173,7 +196,12 @@ class DeploymentState extends FlxState
 
 	function selectSkeleton():Void
 	{
-		// TODO
+		mouseSelectedTarget = 2;
+        // Change the cursor to the zombie's image
+        var sprite = new FlxSprite();
+        sprite.loadGraphic("assets/images/zombie.jpg");
+
+        FlxG.mouse.load(sprite.pixels);
 	}
 
 	function startRound():Void
