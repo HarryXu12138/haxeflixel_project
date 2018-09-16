@@ -7,6 +7,7 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
+import flixel.math.FlxPoint;
 import SimulationState;
 
 class DeploymentState extends FlxState
@@ -38,15 +39,14 @@ class DeploymentState extends FlxState
 		super.create();
         initDeploymentArea();
 		initCharSelectionMenu();
-
 	}
 
     private function initDeploymentArea():Void {
         boardSprite = new Array<Array<Tile>>();
-        boardDeployment = new Array<Array<Int>>;
+        boardDeployment = new Array<Array<Int>>();
         for (j in 0...SimulationState.BOARD_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
-            boardDeployment[j] = new Array<Int>>;
+            boardDeployment[j] = new Array<Int>();
             for (i in 0...SimulationState.BOARD_WIDTH) {
                 boardSprite[j].push(new Tile());
                 boardDeployment[j].push(0);
@@ -56,8 +56,21 @@ class DeploymentState extends FlxState
         }
     }
 
+    private function deploy(X:Float, Y:Float) {
+    }
+
 	override public function update(elapsed:Float):Void
 	{
+        if (mouseSelectedTarget != 0) {
+            if (FlxG.mouse.pressedRight) {
+                FlxG.mouse.unload();
+                mouseSelectedTarget = 0;
+            } else if (FlxG.mouse.justPressed) {
+                deploy(FlxG.mouse.x, FlxG.mouse.y);
+                FlxG.mouse.unload();
+                mouseSelectedTarget = 0;
+            }
+        }
 		super.update(elapsed);
 	}
 
@@ -152,6 +165,10 @@ class DeploymentState extends FlxState
 	function selectZombie():Void
 	{
         mouseSelectedTarget = 1;
+        var sprite = new FlxSprite();
+        sprite.loadGraphic("assets/images/zombie.jpg");
+
+        FlxG.mouse.load(sprite.pixels);
 	}
 
 	function selectSkeleton():Void
