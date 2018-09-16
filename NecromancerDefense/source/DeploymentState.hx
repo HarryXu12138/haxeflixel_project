@@ -7,6 +7,7 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
+import SimulationState;
 
 class DeploymentState extends FlxState
 {
@@ -17,12 +18,31 @@ class DeploymentState extends FlxState
 
 	var mpText : FlxText;
 
+    // Deplyment area variables
+    var board:Array<Array<Tile>>;
+    var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
+    var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
+    // End variables
+
 	override public function create():Void
 	{
 		super.create();
+        initDeploymentArea();
 		initCharSelectionMenu();
-		
+
 	}
+
+    private function initDeploymentArea():Void {
+        board = new Array<Array<Tile>>();
+        for (j in 0...SimulationState.BOARD_HEIGHT) {
+            board[j] = new Array<Tile>();
+            for (i in 0...SimulationState.BOARD_WIDTH) {
+                board[j].push(new Tile());
+                board[j][i].setPosition(deploymentBoardUpperLeftX + i * board[j][i].width, deploymentBoardUpperLeftY + j * board[j][i].height);
+                add(board[j][i]);
+            }
+        }
+    }
 
 	override public function update(elapsed:Float):Void
 	{
@@ -51,11 +71,11 @@ class DeploymentState extends FlxState
 	function initMPText():Void
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
-		mpText.setFormat(20, FlxColor.WHITE, CENTER); 
+		mpText.setFormat(20, FlxColor.WHITE, CENTER);
 		mpText.text = "MP: 10/10";
 		add(mpText);
 	}
-	
+
 	function initZombieButton():Void
 	{
 		_zombieButton = new FlxButton(0, 0, "Zombie", selectZombie);
@@ -63,7 +83,7 @@ class DeploymentState extends FlxState
 
 		_zombieButton.scale.set(2,6);
 		_zombieButton.updateHitbox();
-		
+
 		_zombieButton.label.fieldWidth = _zombieButton.width;
         _zombieButton.label.alignment = "center";
 
@@ -83,7 +103,7 @@ class DeploymentState extends FlxState
 
 		_skeletonButton.scale.set(2,6);
 		_skeletonButton.updateHitbox();
-		
+
 		_skeletonButton.label.fieldWidth = _skeletonButton.width;
         _skeletonButton.label.alignment = "center";
 
@@ -103,7 +123,7 @@ class DeploymentState extends FlxState
 
 		_startButton.scale.set(2.25,3);
 		_startButton.updateHitbox();
-		
+
 		_startButton.label.fieldWidth = _startButton.width;
         _startButton.label.alignment = "center";
 
