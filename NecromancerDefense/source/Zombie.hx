@@ -9,7 +9,9 @@ import flixel.util.FlxColor;
 class Zombie extends Entity 
 {
 	
-	static var SPEED:Int = 30;
+	static var SPEED:Int = 80;
+	static var STARTING_HEALTH:Int = 3;
+	static var ATTACK_SPEED:Int = 2;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{

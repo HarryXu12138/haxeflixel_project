@@ -19,6 +19,7 @@ class SimulationState extends FlxState
 	var _lanes:Array<Array<Entity>>;
 	override public function create():Void
 	{
+		add(new Background("assets/images/forestBG.png"));
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<Array<Entity>>();
 		for (y in 0...BOARD_HEIGHT)
@@ -50,6 +51,7 @@ class SimulationState extends FlxState
 	
 	private function test1():Void
 	{
+		
 		var zombie1:Zombie = new Zombie(20, 72);
 		add(zombie1);
 		_lanes[1].push(zombie1);
