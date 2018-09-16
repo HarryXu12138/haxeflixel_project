@@ -16,16 +16,16 @@ class SimulationState extends FlxState
 	
 	var _board:Array<Array<Tile>>;
 	
-	var _lanes:Array<Array<Entity>>;
+	var _lanes:Array<List<Entity>>;
 	override public function create():Void
 	{
-		add(new Background("assets/images/forestBG.png"));
+		add(new Background("assets/images/NECROBG.png"));
 		_board = new Array<Array<Tile>>();
-		_lanes = new Array<Array<Entity>>();
+		_lanes = new Array<List<Entity>>();
 		for (y in 0...BOARD_HEIGHT)
 		{
 			_board.push(new Array<Tile>());
-			_lanes.push(new Array<Entity>());
+			_lanes.push(new List<Entity>());
 			for (x in 0...BOARD_WIDTH)
 			{
 				_board[y].push(new Tile());
@@ -44,6 +44,10 @@ class SimulationState extends FlxState
 			for (entity in lane)
 			{
 				entity.act(lane);
+				if (!entity.alive)
+				{
+					lane.remove(entity);
+				}
 			}
 		}
 		super.update(elapsed);
@@ -52,17 +56,17 @@ class SimulationState extends FlxState
 	private function test1():Void
 	{
 		
-		var zombie1:Zombie = new Zombie(20, 478);
+		var zombie1:Zombie = new Zombie(20, 472);
 		add(zombie1);
-		_lanes[1].push(zombie1);
+		_lanes[1].add(zombie1);
 		
-		var zombie2:Zombie = new Zombie(32, 526);
+		var zombie2:Zombie = new Zombie(32, 520);
 		add(zombie2);
-		_lanes[2].push(zombie2);
+		_lanes[2].add(zombie2);
 		
-		var human1:Human = new Human(1176, 526);
+		var human1:Human = new Human(1176, 520);
 		add(human1);
-		_lanes[2].push(human1);
+		_lanes[2].add(human1);
 	
 	}
 	
