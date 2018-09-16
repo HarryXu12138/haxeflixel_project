@@ -17,6 +17,9 @@ class SimulationState extends FlxState
 	var _board:Array<Array<Tile>>;
 	
 	var _lanes:Array<Array<Entity>>;
+
+	var _simulationHUD : SimulationHUD;
+
 	override public function create():Void
 	{
 		_board = new Array<Array<Tile>>();
@@ -33,6 +36,10 @@ class SimulationState extends FlxState
 			}
 		}
 		test1();
+
+		_simulationHUD = new SimulationHUD();
+		add(_simulationHUD);
+
 		super.create();
 	}
 
