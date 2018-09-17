@@ -206,7 +206,7 @@ class DeploymentState extends FlxState
 
 	function startRound():Void
 	{
-		// Hide graphics
+		FlxG.switchState(new SimulationState());
 	}
 
 }
