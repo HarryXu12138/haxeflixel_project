@@ -167,8 +167,8 @@ class DeploymentMenu extends FlxGroup
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
         sprite.loadGraphic("assets/images/Zombie.png");
-        var xOffset:Int = cast(sprite.width / 2, Int);
-        var yOffset:Int = cast(sprite.height, Int);
+        var xOffset:Int = -Std.int(sprite.width * 0.4);
+        var yOffset:Int = -Std.int(sprite.height * 0.9);
 
         FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
@@ -179,8 +179,8 @@ class DeploymentMenu extends FlxGroup
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
         sprite.loadGraphic("assets/images/Skeleton.png");
-        var xOffset:Int = cast(sprite.width / 2, Int);
-        var yOffset:Int = cast(sprite.height, Int);
+        var xOffset:Int = -Std.int(sprite.width * 0.4);
+        var yOffset:Int = -Std.int(sprite.height * 0.9);
 
         FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
