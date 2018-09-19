@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxState;
+import flixel.FlxSubState;
 import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -109,9 +110,10 @@ class DeploymentState extends FlxState
 	}
 
     private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.1, "Show Enemy", showEnemy);
         showEnemyButton.updateHitbox();
         showEnemyButton.label.alignment = "center";
+        add(showEnemyButton);
     }
 
 
@@ -193,7 +195,7 @@ class DeploymentState extends FlxState
 	}
 
     private function showEnemy():Void {
-        openSubState(new ShowEnemySubState());
+        openSubState(new ShowEnemySubState(0xff000000));
     }
 
 	private function selectZombie():Void

@@ -23,8 +23,8 @@ class ShowEnemySubState extends FlxSubState {
     // Board variables
     private var boardSprite:Array<Array<Tile>>;
     private var entitySprite:Array<Array<FlxSprite>>;
-    private var boardUpperLeftX:Float = FlxG.width * 0.3;
-    private var boardUpperLeftY:Float = FlxG.height * 0.2;
+    private var boardUpperLeftX:Float = FlxG.width * 0.5;
+    private var boardUpperLeftY:Float = FlxG.height * 0.4;
     // End variables
 
     override public function create():Void {
