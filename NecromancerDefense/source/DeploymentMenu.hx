@@ -8,6 +8,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
+import flixel.addons.ui.FlxUIButton;
 
 class DeploymentMenu extends FlxGroup
 {
@@ -158,11 +159,15 @@ class DeploymentMenu extends FlxGroup
 	{
 		if(FlxG.timeScale == 0)
 			return;
+			
         FlxG.switchState(new SimulationState());
 	}
 
 	private function selectZombie():Void
 	{
+		if(FlxG.timeScale == 0)
+			return;
+
         mouseSelectedTarget = 1;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
@@ -173,6 +178,9 @@ class DeploymentMenu extends FlxGroup
 
 	private function selectSkeleton():Void
 	{
+		if(FlxG.timeScale == 0)
+			return;
+
 		mouseSelectedTarget = 2;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
