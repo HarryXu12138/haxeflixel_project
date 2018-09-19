@@ -7,15 +7,15 @@ import flixel.FlxState;
  */
 class SimulationState extends FlxState
 {
-	
-	static var BOARD_WIDTH:Int = 5;
-	static var BOARD_HEIGHT:Int = 5;
-	
+
+	public static var BOARD_WIDTH:Int = 5;
+	public static var BOARD_HEIGHT:Int = 5;
+
 	static var TOP_LEFT_X:Float = 20;
 	static var TOP_LEFT_Y:Float = 50;
-	
+
 	var _board:Array<Array<Tile>>;
-	
+
 	var _lanes:Array<Array<Entity>>;
 
 	var _simulationHUD : SimulationHUD;
@@ -54,21 +54,21 @@ class SimulationState extends FlxState
 		}
 		super.update(elapsed);
 	}
-	
+
 	private function test1():Void
 	{
 		var zombie1:Zombie = new Zombie(20, 72);
 		add(zombie1);
 		_lanes[1].push(zombie1);
-		
+
 		var zombie2:Zombie = new Zombie(32, 136);
 		add(zombie2);
 		_lanes[2].push(zombie2);
-		
+
 		var human1:Human = new Human(284, 136);
 		add(human1);
 		_lanes[2].push(human1);
-	
+
 	}
-	
+
 }
