@@ -96,7 +96,7 @@ class DeploymentState extends FlxState
 		super.update(elapsed);
 	}
 
-	function initCharSelectionMenu(): Void
+	private function initCharSelectionMenu(): Void
 	{
 		initPanel();
 		initMPText();
@@ -106,7 +106,7 @@ class DeploymentState extends FlxState
 	}
 
 
-	function initPanel():Void
+	private function initPanel():Void
 	{
 		panel = new FlxSprite();
 		panel.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
@@ -115,7 +115,7 @@ class DeploymentState extends FlxState
 		FlxSpriteUtil.drawRoundRect(panel, FlxG.width * 0.025, FlxG.height * 0.1, FlxG.width * 0.17, FlxG.height * 0.85, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
 	}
 
-	function initMPText():Void
+	private function initMPText():Void
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
 		mpText.setFormat(20, FlxColor.WHITE, CENTER);
@@ -123,7 +123,7 @@ class DeploymentState extends FlxState
 		add(mpText);
 	}
 
-	function initZombieButton():Void
+	private function initZombieButton():Void
 	{
 		_zombieButton = new FlxButton(0, 0, "Zombie", selectZombie);
 		//_zombieButton.loadGraphic("assets/images/custom.png");
@@ -143,7 +143,7 @@ class DeploymentState extends FlxState
 		add(_zombieButton);
 	}
 
-	function initSkeletonButton():Void
+	private function initSkeletonButton():Void
 	{
 		_skeletonButton = new FlxButton(0, 0, "Skeleton", selectSkeleton);
 		//_skeletonButton.loadGraphic("assets/images/custom.png");
@@ -163,7 +163,7 @@ class DeploymentState extends FlxState
 		add(_skeletonButton);
 	}
 
-	function initStartButton():Void
+	private function initStartButton():Void
 	{
 		_startButton = new FlxButton(0, 0, "Start Round", startRound);
 		//_startButton.loadGraphic("assets/images/custom.png");
@@ -184,7 +184,7 @@ class DeploymentState extends FlxState
 	}
 
 
-	function selectZombie():Void
+	private function selectZombie():Void
 	{
         mouseSelectedTarget = 1;
         // Change the cursor to the zombie's image
@@ -194,7 +194,7 @@ class DeploymentState extends FlxState
         FlxG.mouse.load(sprite.pixels);
 	}
 
-	function selectSkeleton():Void
+	private function selectSkeleton():Void
 	{
 		mouseSelectedTarget = 2;
         // Change the cursor to the zombie's image
@@ -204,7 +204,7 @@ class DeploymentState extends FlxState
         FlxG.mouse.load(sprite.pixels);
 	}
 
-	function startRound():Void
+	private function startRound():Void
 	{
 		FlxG.switchState(new SimulationState());
 	}
