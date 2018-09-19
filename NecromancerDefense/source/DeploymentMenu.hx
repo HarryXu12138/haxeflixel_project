@@ -65,7 +65,7 @@ class DeploymentMenu extends FlxGroup
 
 		_pauseButton.scale.set(0.6,2);
 		_pauseButton.updateHitbox();
-		
+
 		_pauseButton.label.fieldWidth = _pauseButton.width;
         _pauseButton.label.alignment = "center";
 
@@ -82,7 +82,7 @@ class DeploymentMenu extends FlxGroup
 	{
 		_panel = new FlxSprite();
 		_panel.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
-		add(_panel);		
+		add(_panel);
 
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.025, FlxG.height * 0.1, FlxG.width * 0.17, FlxG.height * 0.85, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
 	}
@@ -90,11 +90,11 @@ class DeploymentMenu extends FlxGroup
 	function initMPText():Void
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
-		mpText.setFormat(20, FlxColor.WHITE, CENTER); 
+		mpText.setFormat(20, FlxColor.WHITE, CENTER);
 		mpText.text = "MP: 10/10";
 		add(mpText);
 	}
-	
+
 	function initZombieButton():Void
 	{
 		_zombieButton = new FlxButton(0, 0, "Zombie", selectZombie);
@@ -102,7 +102,7 @@ class DeploymentMenu extends FlxGroup
 
 		_zombieButton.scale.set(2,6);
 		_zombieButton.updateHitbox();
-		
+
 		_zombieButton.label.fieldWidth = _zombieButton.width;
         _zombieButton.label.alignment = "center";
 
@@ -122,7 +122,7 @@ class DeploymentMenu extends FlxGroup
 
 		_skeletonButton.scale.set(2,6);
 		_skeletonButton.updateHitbox();
-		
+
 		_skeletonButton.label.fieldWidth = _skeletonButton.width;
         _skeletonButton.label.alignment = "center";
 
@@ -133,7 +133,7 @@ class DeploymentMenu extends FlxGroup
 		_skeletonButton.y = FlxG.height * 0.5;
 
 		add(_skeletonButton);
-	}	
+	}
 
 	function initStartButton():Void
 	{
@@ -142,7 +142,7 @@ class DeploymentMenu extends FlxGroup
 
 		_startRoundButton.scale.set(2.25,3);
 		_startRoundButton.updateHitbox();
-		
+
 		_startRoundButton.label.fieldWidth = _startRoundButton.width;
         _startRoundButton.label.alignment = "center";
 
@@ -193,7 +193,7 @@ class DeploymentMenu extends FlxGroup
 	{
 		if(FlxG.timeScale == 0)
 			return;
-			
+
 		_pauseMenu.show(FlxG.timeScale);
         FlxG.timeScale = 0;
 	}

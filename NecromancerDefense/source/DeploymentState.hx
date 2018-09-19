@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxState;
+import flixel.FlxSubState;
 import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -9,6 +10,8 @@ import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
+
+import flixel.group.FlxGroup;
 import GlobalValues;
 
 
@@ -20,8 +23,10 @@ class DeploymentState extends FlxState
     1 -- zombie
     */
 
-	var _deployMenu : DeploymentMenu;
-	private var showEnemyButton:FlxButton;	
+	private var _deployMenu : DeploymentMenu;
+	private var showEnemyButton:FlxButton;
+
+    private var spriteGroup:FlxTypedGroup<FlxSprite>;
 
     // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
@@ -33,24 +38,25 @@ class DeploymentState extends FlxState
 
 	override public function create():Void
 	{
-		
+        spriteGroup = new FlxTypedGroup<FlxSprite>();
+        _deployMenu = new DeploymentMenu();
         initDeploymentArea();
-		_deployMenu = new DeploymentMenu();
+        add(spriteGroup);
 		add(_deployMenu);
 		initShowEnemyButton();
-		
-		super.create();		
+		super.create();
 	}
 
-	
+
 	private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
         showEnemyButton.updateHitbox();
         showEnemyButton.label.alignment = "center";
+        add(showEnemyButton);
     }
 
 	private function showEnemy():Void {
-        openSubState(new ShowEnemySubState());
+        openSubState(new ShowEnemySubState(0xff000000));
     }
 
     // Initialize the board sprite array
@@ -83,7 +89,7 @@ class DeploymentState extends FlxState
                     boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
                     var sprite = new FlxSprite();
                     sprite.setPosition(minX, minY);
-                    add(sprite);
+                    spriteGroup.add(sprite);
                     break;
                 }
             }

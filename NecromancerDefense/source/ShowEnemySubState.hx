@@ -23,13 +23,14 @@ class ShowEnemySubState extends FlxSubState {
     // Board variables
     private var boardSprite:Array<Array<Tile>>;
     private var entitySprite:Array<Array<FlxSprite>>;
-    private var boardUpperLeftX:Float = FlxG.width * 0.3;
-    private var boardUpperLeftY:Float = FlxG.height * 0.2;
+    private var boardUpperLeftX:Float = FlxG.width * 0.5;
+    private var boardUpperLeftY:Float = FlxG.height * 0.4;
     // End variables
 
     override public function create():Void {
         super.create();
         initBoardArea();
+        initButtons();
     }
 
     private function initBoardArea():Void {
@@ -42,5 +43,20 @@ class ShowEnemySubState extends FlxSubState {
                 add(boardSprite[j][i]);
             }
         }
+    }
+
+    private function initButtons():Void {
+        returnToDeploymentButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Return", returnToDeployment);
+        returnToDeploymentButton.updateHitbox();
+        returnToDeploymentButton.label.alignment = "center";
+        add(returnToDeploymentButton);
+    }
+
+    private function returnToDeployment():Void {
+        close();
+    }
+
+    override public function update(elapsed:Float):Void {
+        super.update(elapsed);
     }
 }
