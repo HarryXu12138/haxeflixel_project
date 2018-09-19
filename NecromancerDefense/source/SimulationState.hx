@@ -26,6 +26,7 @@ class SimulationState extends FlxState
 	static var humanOffsetX:Int = 56;
 	static var zombieOffsetX:Int = -744;
 	
+	var _simulationHUD : SimulationHUD;
 	override public function create():Void
 	{
 		add(new Background("assets/images/NECROBG.png"));
@@ -45,6 +46,8 @@ class SimulationState extends FlxState
 		test2();
 		placeUndeadUnits();
 		placeHumanUnits();
+		_simulationHUD = new SimulationHUD();
+		add(_simulationHUD);
 		super.create();
 	}
 

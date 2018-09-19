@@ -7,6 +7,7 @@ import flixel.FlxG;
 class MainMenu extends FlxState
 {
     var _startButton:FlxButton;
+	
 	override public function create():Void
 	{
 		super.create();
