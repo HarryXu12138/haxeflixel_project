@@ -10,7 +10,7 @@ import flixel.util.FlxColor;
 class Human extends Entity 
 {
 	
-	static var STARTING_HEALTH:Int = 3;
+	static var STARTING_HEALTH:Int = 4;
 	static var ATTACK_DELAY:Int = 12;
 	
 	var _targets:List<Entity>;

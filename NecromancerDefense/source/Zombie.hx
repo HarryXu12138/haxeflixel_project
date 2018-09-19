@@ -15,12 +15,14 @@ class Zombie extends Entity
 	
 	var _target:Entity;
 	
+	var movementSpeed:Int;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
 		makeGraphic(48, 96, FlxColor.GREEN);
-		velocity.set(SPEED, 0);
+		movementSpeed = SPEED;
+		velocity.set(movementSpeed, 0);
 		attackDelay = ATTACK_DELAY;
 		_hp = STARTING_HEALTH;
 	}
@@ -71,7 +73,7 @@ class Zombie extends Entity
 				}
 				else
 				{
-					velocity.set(SPEED, 0);
+					velocity.set(movementSpeed, 0);
 				}
 			}
 		}

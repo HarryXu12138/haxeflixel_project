@@ -17,6 +17,15 @@ class SimulationState extends FlxState
 	var _board:Array<Array<Tile>>;
 	
 	var _lanes:Array<List<Entity>>;
+	
+	public static var deploymentUnits:Array<Array<Int>> = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
+	public static var humanUnits:Array<Array<Int>> = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]];
+	
+	
+	static var entityOffsetY:Int = 424;
+	static var humanOffsetX:Int = 56;
+	static var zombieOffsetX:Int = -744;
+	
 	override public function create():Void
 	{
 		add(new Background("assets/images/NECROBG.png"));
@@ -33,7 +42,9 @@ class SimulationState extends FlxState
 				add(_board[y][x]);
 			}
 		}
-		test1();
+		test2();
+		placeUndeadUnits();
+		placeHumanUnits();
 		super.create();
 	}
 
@@ -68,6 +79,54 @@ class SimulationState extends FlxState
 		add(human1);
 		_lanes[2].add(human1);
 	
+	}
+	
+	private function test2():Void
+	{
+		deploymentUnits[0] = [2, 2, 2, 1, 1];
+		humanUnits[0] = [0, 0, 0, 0, 0, 0, 1, 1];
+	}
+	
+	private function placeUndeadUnits():Void
+	{
+		
+		for (y in 0...deploymentUnits.length)
+		{
+			for (x in 0...deploymentUnits[y].length)
+			{
+				var unit:Zombie;
+				if (deploymentUnits[y][x] == 1)
+				{
+					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					add(unit);
+					_lanes[y].add(unit);
+				}
+				else if (deploymentUnits[y][x] == 2)
+				{
+					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					add(unit);
+					_lanes[y].add(unit);
+				} 
+				
+			}
+		}
+	}
+	
+	private function placeHumanUnits():Void
+	{
+		for (y in 0...humanUnits.length)
+		{
+			for (x in 0...humanUnits[y].length)
+			{
+				var unit:Human;
+				if (humanUnits[y][x] == 1)
+				{
+					unit = new Human(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					add(unit);
+					_lanes[y].add(unit);
+				}
+			}
+		}
 	}
 	
 }
