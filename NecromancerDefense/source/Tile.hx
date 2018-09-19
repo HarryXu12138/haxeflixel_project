@@ -12,7 +12,7 @@ class Tile extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		loadGraphic("assets/images/sampleTile.png");
+		loadGraphic("assets/images/gridTile.png");
 	}
 	
 	public function setOccupiedEntity(entity:Entity):Void
