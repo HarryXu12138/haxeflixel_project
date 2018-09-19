@@ -42,8 +42,8 @@ class DeploymentState extends FlxState
         _deployMenu = new DeploymentMenu();
         initDeploymentArea();
         add(spriteGroup);
-		add(_deployMenu);
 		initShowEnemyButton();
+		add(_deployMenu);
 		super.create();
 	}
 
@@ -56,6 +56,9 @@ class DeploymentState extends FlxState
     }
 
 	private function showEnemy():Void {
+        if(FlxG.timeScale == 0)
+            return;
+
         openSubState(new ShowEnemySubState(0xff000000));
     }
 
