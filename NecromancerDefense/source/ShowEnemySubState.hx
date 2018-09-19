@@ -30,6 +30,7 @@ class ShowEnemySubState extends FlxSubState {
     override public function create():Void {
         super.create();
         initBoardArea();
+        initButtons();
     }
 
     private function initBoardArea():Void {
@@ -42,6 +43,17 @@ class ShowEnemySubState extends FlxSubState {
                 add(boardSprite[j][i]);
             }
         }
+    }
+
+    private function initButtons():Void {
+        returnToDeploymentButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Return", returnToDeployment);
+        returnToDeploymentButton.updateHitbox();
+        returnToDeploymentButton.label.alignment = "center";
+        add(returnToDeploymentButton);
+    }
+
+    private function returnToDeployment():Void {
+        close();
     }
 
     override public function update(elapsed:Float):Void {

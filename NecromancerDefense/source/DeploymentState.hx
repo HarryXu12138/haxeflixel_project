@@ -44,19 +44,19 @@ class DeploymentState extends FlxState
         add(spriteGroup);
 		add(_deployMenu);
 		initShowEnemyButton();
-
 		super.create();
 	}
 
 
 	private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
         showEnemyButton.updateHitbox();
         showEnemyButton.label.alignment = "center";
+        add(showEnemyButton);
     }
 
 	private function showEnemy():Void {
-        openSubState(new ShowEnemySubState());
+        openSubState(new ShowEnemySubState(0xff000000));
     }
 
     // Initialize the board sprite array
