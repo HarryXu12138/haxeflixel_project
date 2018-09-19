@@ -8,7 +8,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.math.FlxPoint;
-import SimulationState;
+import GlobalValues;
 
 class DeploymentState extends FlxState
 {
@@ -46,10 +46,10 @@ class DeploymentState extends FlxState
     private function initDeploymentArea():Void {
         boardSprite = new Array<Array<Tile>>();
         boardDeployment = new Array<Array<Int>>();
-        for (j in 0...SimulationState.BOARD_HEIGHT) {
+        for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
             boardDeployment[j] = new Array<Int>();
-            for (i in 0...SimulationState.BOARD_WIDTH) {
+            for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 boardSprite[j].push(new Tile());
                 boardDeployment[j].push(0);
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
@@ -61,8 +61,8 @@ class DeploymentState extends FlxState
     // After mouse released in (X, Y), this function will be call
     // Record the deplyment to the array
     private function deploy(x:Float, y:Float) {
-        for (j in 0...SimulationState.BOARD_HEIGHT) {
-            for (i in 0...SimulationState.BOARD_WIDTH) {
+        for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
+            for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 var minX = deploymentBoardUpperLeftX + i * boardSprite[j][i].width;
                 var minY = deploymentBoardUpperLeftY + j * boardSprite[j][i].height;
                 var maxX = minX + boardSprite[j][i].width;
