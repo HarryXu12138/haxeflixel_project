@@ -63,7 +63,7 @@ class SimulationState extends FlxState
 		}
 		super.update(elapsed);
 	}
-	
+
 	private function test1():Void
 	{
 		
