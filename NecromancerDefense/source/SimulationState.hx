@@ -1,5 +1,6 @@
 package;
 import flixel.FlxState;
+import flixel.group.FlxGroup;
 
 /**
  * ...
@@ -21,6 +22,7 @@ class SimulationState extends FlxState
 	public static var deploymentUnits:Array<Array<Int>> = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
 	public static var humanUnits:Array<Array<Int>> = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]];
 	
+	var entityGroup:FlxGroup;
 	
 	static var entityOffsetY:Int = 424;
 	static var humanOffsetX:Int = 56;
@@ -32,6 +34,7 @@ class SimulationState extends FlxState
 		add(new Background("assets/images/NECROBG.png"));
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
+		entityGroup = new FlxGroup();
 		for (y in 0...BOARD_HEIGHT)
 		{
 			_board.push(new Array<Tile>());
@@ -46,6 +49,7 @@ class SimulationState extends FlxState
 		test2();
 		placeUndeadUnits();
 		placeHumanUnits();
+		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
 		super.create();
@@ -88,6 +92,8 @@ class SimulationState extends FlxState
 	{
 		deploymentUnits[0] = [2, 2, 2, 1, 1];
 		humanUnits[0] = [0, 0, 0, 0, 0, 0, 1, 1];
+		deploymentUnits[1] = [1, 1, 1, 1, 1];
+		humanUnits[1] = [0, 0, 0, 0, 0, 0, 2, 2];
 	}
 	
 	private function placeUndeadUnits():Void
@@ -97,17 +103,19 @@ class SimulationState extends FlxState
 		{
 			for (x in 0...deploymentUnits[y].length)
 			{
-				var unit:Zombie;
+				var unit:Undead;
 				if (deploymentUnits[y][x] == 1)
 				{
 					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
-					add(unit);
+					
+					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (deploymentUnits[y][x] == 2)
 				{
 					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
-					add(unit);
+					
+					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				} 
 				
@@ -124,8 +132,14 @@ class SimulationState extends FlxState
 				var unit:Human;
 				if (humanUnits[y][x] == 1)
 				{
-					unit = new Human(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
-					add(unit);
+					unit = new Soldier(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					entityGroup.add(unit);
+					_lanes[y].add(unit);
+				}
+				else if (humanUnits[y][x] == 2)
+				{
+					unit = new Archer(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height, entityGroup);
+					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 			}
