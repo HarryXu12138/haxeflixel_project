@@ -109,7 +109,7 @@ class DeploymentState extends FlxState
 	}
 
     private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FLxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
         showEnemyButton.updateHitbox();
         showEnemyButton.label.alignment = "center";
     }
