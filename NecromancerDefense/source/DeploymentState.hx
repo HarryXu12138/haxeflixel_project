@@ -10,7 +10,6 @@ import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
-
 import flixel.group.FlxGroup;
 import GlobalValues;
 
@@ -30,7 +29,7 @@ class DeploymentState extends FlxState
 
     // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
-    private var boardDeployment:Array<Array<Int>>;
+    public var boardDeployment:Array<Array<Int>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
 
@@ -46,7 +45,6 @@ class DeploymentState extends FlxState
 		initShowEnemyButton();
 		super.create();
 	}
-
 
 	private function initShowEnemyButton():Void {
         showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
@@ -94,6 +92,7 @@ class DeploymentState extends FlxState
                 }
             }
         }
+        SimulationState.deploymentUnits = boardDeployment;
     }
 
     // When update frames, check the mouse status and call deploy if necessary
