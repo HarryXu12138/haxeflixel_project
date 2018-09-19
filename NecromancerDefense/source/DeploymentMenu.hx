@@ -20,7 +20,6 @@ class DeploymentMenu extends FlxGroup
 	var _pauseMenu : PauseMenu;
 	var _startRoundButton : FlxButton;
 
-	private var showEnemyButton:FlxButton;	
     public var mouseSelectedTarget = 0;
 
 	public function new():Void
@@ -40,7 +39,6 @@ class DeploymentMenu extends FlxGroup
 		initSkeletonButton();
 		initPauseButton();
 		initStartButton();
-		initShowEnemyButton();
 	}
 
 	public function hide(): Void
@@ -156,13 +154,6 @@ class DeploymentMenu extends FlxGroup
 		add(_startRoundButton);
 	}
 
-	private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
-        showEnemyButton.updateHitbox();
-        showEnemyButton.label.alignment = "center";
-    }
-
-
 	function startRound():Void
 	{
 		if(FlxG.timeScale == 0)
@@ -190,7 +181,6 @@ class DeploymentMenu extends FlxGroup
         FlxG.mouse.load(sprite.pixels);
 	}
 
-
 	function pause():Void
 	{
 		if(FlxG.timeScale == 0)
@@ -199,10 +189,5 @@ class DeploymentMenu extends FlxGroup
 		_pauseMenu.show(FlxG.timeScale);
         FlxG.timeScale = 0;
 	}
-
-	private function showEnemy():Void {
-        FlxState.openSubState(new ShowEnemySubState());
-    }
-
 
 }

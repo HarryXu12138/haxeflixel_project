@@ -21,6 +21,7 @@ class DeploymentState extends FlxState
     */
 
 	var _deployMenu : DeploymentMenu;
+	private var showEnemyButton:FlxButton;	
 
     // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
@@ -36,7 +37,19 @@ class DeploymentState extends FlxState
 		add(_deployMenu);
 		super.create();		
         initDeploymentArea();
+		initShowEnemyButton();
 	}
+
+	
+	private function initShowEnemyButton():Void {
+        showEnemyButton = new FlxButton(FlxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton.updateHitbox();
+        showEnemyButton.label.alignment = "center";
+    }
+
+	private function showEnemy():Void {
+        openSubState(new ShowEnemySubState());
+    }
 
     // Initialize the board sprite array
     // Initialize the array that record the deployment result
