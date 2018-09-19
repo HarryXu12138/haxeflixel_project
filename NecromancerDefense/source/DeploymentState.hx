@@ -18,27 +18,29 @@ class DeploymentState extends FlxState
     1 -- zombie
     2 -- skeleton
     */
-	var _zombieButton : FlxButton;
-	var _skeletonButton : FlxButton;
-	var _startButton : FlxButton;
-	var panel : FlxSprite;
+	private var _zombieButton : FlxButton;
+	private var _skeletonButton : FlxButton;
+	private var _startButton : FlxButton;
+	private var panel : FlxSprite;
 
-	var mpText : FlxText;
+    private var showEnemyButton:FlxButton;
+
+	private var mpText : FlxText;
 
     // Deployment area variables
-    var boardSprite:Array<Array<Tile>>;
-    var boardDeployment:Array<Array<Int>>;
-    var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
-    var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
+    private var boardSprite:Array<Array<Tile>>;
+    private var boardDeployment:Array<Array<Int>>;
+    private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
+    private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
 
-    var mouseSelectedTarget = 0;
+    private var mouseSelectedTarget = 0;
     // End variables
 
 	override public function create():Void
 	{
 		super.create();
         initDeploymentArea();
-		initCharSelectionMenu();
+		initButtons();
 	}
 
     // Initialize the board sprite array
@@ -96,14 +98,21 @@ class DeploymentState extends FlxState
 		super.update(elapsed);
 	}
 
-	private function initCharSelectionMenu(): Void
+	private function initButtons(): Void
 	{
 		initPanel();
 		initMPText();
 		initZombieButton();
 		initSkeletonButton();
 		initStartButton();
+        initShowEnemyButton();
 	}
+
+    private function initShowEnemyButton():Void {
+        showEnemyButton = new FlxButton(FLxG.width * 0.9, FlxG.height * 0.9, "Show Enemy", showEnemy);
+        showEnemyButton.updateHitbox();
+        showEnemyButton.label.alignment = "center";
+    }
 
 
 	private function initPanel():Void
@@ -183,6 +192,9 @@ class DeploymentState extends FlxState
 		add(_startButton);
 	}
 
+    private function showEnemy():Void {
+        openSubState(new ShowEnemySubState());
+    }
 
 	private function selectZombie():Void
 	{
