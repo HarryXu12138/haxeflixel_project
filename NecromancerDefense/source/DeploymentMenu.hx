@@ -166,9 +166,11 @@ class DeploymentMenu extends FlxGroup
         mouseSelectedTarget = 1;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
-        sprite.loadGraphic("assets/images/zombie.jpg");
+        sprite.loadGraphic("assets/images/Zombie.png");
+        var xOffset:Int = cast(sprite.width / 2, Int);
+        var yOffset:Int = cast(sprite.height, Int);
 
-        FlxG.mouse.load(sprite.pixels);
+        FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
 
 	private function selectSkeleton():Void
@@ -176,9 +178,11 @@ class DeploymentMenu extends FlxGroup
 		mouseSelectedTarget = 2;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
-        sprite.loadGraphic("assets/images/zombie.jpg");
+        sprite.loadGraphic("assets/images/Skeleton.png");
+        var xOffset:Int = cast(sprite.width / 2, Int);
+        var yOffset:Int = cast(sprite.height, Int);
 
-        FlxG.mouse.load(sprite.pixels);
+        FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
 
 	function pause():Void
