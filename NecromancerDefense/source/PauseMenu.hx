@@ -10,13 +10,16 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flash.system.System;
 
-class SimulationPauseMenu extends FlxTypedGroup<FlxSprite>
+class PauseMenu extends FlxTypedGroup<FlxSprite>
 {
 	var _resumeButton : FlxButton;
 	var _returnToMain : FlxButton;
 	var _quitButton : FlxButton;
 
 	var _panel : FlxSprite;
+	var _blackFilter : FlxSprite;
+
+	var _savedTime : Float;
 
 	public function new():Void
 	{
@@ -26,6 +29,8 @@ class SimulationPauseMenu extends FlxTypedGroup<FlxSprite>
 
 	function initPauseMenu(): Void
 	{
+		
+		initBlackFilter();
 		initPanel();
 		initResumeButton();
 		initReturnToMainButton();
@@ -35,18 +40,22 @@ class SimulationPauseMenu extends FlxTypedGroup<FlxSprite>
 
 	public function hide(): Void
 	{
+		_blackFilter.kill();
 		_panel.kill();
         _resumeButton.kill();
         _returnToMain.kill();
         _quitButton.kill();
 	}
 
-    public function show(): Void
+    public function show(currentTime): Void
 	{
+		_blackFilter.revive();
 		_panel.revive();
         _resumeButton.revive();
         _returnToMain.revive();
         _quitButton.revive();
+
+		_savedTime = currentTime;
 	}
 	
 	function initResumeButton():Void
@@ -115,18 +124,28 @@ class SimulationPauseMenu extends FlxTypedGroup<FlxSprite>
 		_panel.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
 		add(_panel);		
 
-		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.2, FlxG.width * 0.3, FlxG.height * 0.6, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
+		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.2, FlxG.width * 0.3, FlxG.height * 0.6, 10, 10, FlxColor.fromRGB(81, 85, 91, 256));
+	}
+
+	function initBlackFilter():Void
+	{
+		_blackFilter = new FlxSprite();
+		_blackFilter.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
+		add(_blackFilter);		
+
+		FlxSpriteUtil.drawRoundRect(_blackFilter, 0, 0, FlxG.width, FlxG.height, 10, 10, FlxColor.fromRGB(24, 26, 30, 200));
 	}
 
 	function resume():Void
 	{
 		hide();
-        FlxG.timeScale = 1;
+		FlxG.timeScale = _savedTime;
 	}
 
 	function returnToMain():Void
 	{
-		 FlxG.switchState(new MainMenu());
+		FlxG.timeScale = 1;
+		FlxG.switchState(new MainMenu());
 	}
 
 	function quit():Void

@@ -13,18 +13,21 @@ class SimulationHUD extends FlxGroup
 {
 	var _pauseButton : FlxButton;
 	var _fastForwardButton : FlxButton;
+	var _slowDownButton : FlxButton;
 	var _returnToMain : FlxButton;
 	var mpText : FlxText;
 
-	var _pauseMenu : SimulationPauseMenu;
+	var _pauseMenu : PauseMenu;
+
+	var _fastestSpeed : Float = 3.0;
+	var _slowestSpeed : Float = 1.0;
 
 	public function new():Void
 	{
 		super();
         initSimHUD();
-
 		
-		_pauseMenu = new SimulationPauseMenu();
+		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
 	}
 
@@ -33,6 +36,7 @@ class SimulationHUD extends FlxGroup
 		initMPText();
 		initPauseButton();
 		initFastForwardButton();
+		initSlowDownButton();
 	}
 
 	function initMPText():Void
@@ -81,15 +85,52 @@ class SimulationHUD extends FlxGroup
 		add(_fastForwardButton);
 	}
 
+	function initSlowDownButton():Void
+	{
+		_slowDownButton = new FlxButton(0, 0, "<<", slowDown);
+		//_slowDownButton.loadGraphic("assets/images/custom.png");
+
+		_slowDownButton.scale.set(0.6,2);
+		_slowDownButton.updateHitbox();
+		
+		_slowDownButton.label.fieldWidth = _slowDownButton.width;
+        _slowDownButton.label.alignment = "center";
+
+		_slowDownButton.label.size = 18;
+
+		_slowDownButton.x = FlxG.width * 0.85;
+		_slowDownButton.y = FlxG.height * 0.05;
+
+		add(_slowDownButton);
+	}
+
 	function pause():Void
 	{
-        FlxG.timeScale = 0;
-		_pauseMenu.show();
+		if(FlxG.timeScale == 0)
+			return;
+			
+		_pauseMenu.show(FlxG.timeScale);
+		FlxG.timeScale = 0;
 	}
 
 	function fastForward():Void
 	{
-		FlxG.timeScale = 2;
+		if(FlxG.timeScale == 0)
+			return;
+
+		FlxG.timeScale *= 2;
+		if(FlxG.timeScale >= _fastestSpeed)
+			FlxG.timeScale = _fastestSpeed;
+	}
+
+	function slowDown():Void
+	{
+		if(FlxG.timeScale == 0)
+			return;
+
+		FlxG.timeScale /= 2;
+		if(FlxG.timeScale <= _slowestSpeed)
+			FlxG.timeScale = _slowestSpeed;
 	}
 
 }
