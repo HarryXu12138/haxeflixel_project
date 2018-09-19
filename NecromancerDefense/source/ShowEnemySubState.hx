@@ -43,4 +43,8 @@ class ShowEnemySubState extends FlxSubState {
             }
         }
     }
+
+    override public function update(elapsed:Float):Void {
+        super.update(elapsed);
+    }
 }
