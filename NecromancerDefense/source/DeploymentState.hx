@@ -86,7 +86,9 @@ class DeploymentState extends FlxState
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
                     boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
                     var sprite = new FlxSprite();
-                    sprite.setPosition(minX, minY);
+                    if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
+                    else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
+                    sprite.setPosition(minX + sprite.width * 0.15, minY - sprite.height * 0.6);
                     spriteGroup.add(sprite);
                     break;
                 }
