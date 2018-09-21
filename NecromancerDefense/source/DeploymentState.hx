@@ -25,7 +25,8 @@ class DeploymentState extends FlxState
 	private var _deployMenu : DeploymentMenu;
 	private var showEnemyButton:FlxButton;
 
-    private var spriteGroup:FlxTypedGroup<FlxSprite>;
+    private var deploymentSpriteGroups:Array<FlxTypedGroup<FlxSprite>>;
+    private var deploymentSprites:Array<Array<FlxSprite>>;
 
     // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
@@ -37,11 +38,9 @@ class DeploymentState extends FlxState
 
 	override public function create():Void
 	{
-        spriteGroup = new FlxTypedGroup<FlxSprite>();
         _deployMenu = new DeploymentMenu();
+        add(_deployMenu);
         initDeploymentArea();
-        add(spriteGroup);
-		add(_deployMenu);
 		initShowEnemyButton();
 		super.create();
 	}
@@ -60,17 +59,23 @@ class DeploymentState extends FlxState
     // Initialize the board sprite array
     // Initialize the array that record the deployment result
     private function initDeploymentArea():Void {
+        deploymentSpriteGroups = new Array<FlxTypedGroup<FlxSprite>>();
+        deploymentSprites = new Array<Array<FlxSprite>>();
         boardSprite = new Array<Array<Tile>>();
         boardDeployment = new Array<Array<Int>>();
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
-            boardSprite[j] = new Array<Tile>();
-            boardDeployment[j] = new Array<Int>();
+            deploymentSpriteGroups.push(new FlxTypedGroup<FlxSprite>());
+            boardSprite.push(new Array<Tile>());
+            boardDeployment.push(new Array<Int>());
+            deploymentSprites.push(new Array<FlxSprite>());
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 boardSprite[j].push(new Tile());
                 boardDeployment[j].push(0);
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
+                deploymentSprites[j].push(new FlxSprite());
             }
+            add(deploymentSpriteGroups[j]);
         }
     }
 
@@ -84,17 +89,37 @@ class DeploymentState extends FlxState
                 var maxX = minX + boardSprite[j][i].width;
                 var maxY = minY + boardSprite[j][i].height;
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
-                    boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
+                    if (boardDeployment[j][i] == _deployMenu.mouseSelectedTarget) return;
+                    if (boardDeployment[j][i] != 0 && boardDeployment[j][i] != _deployMenu.mouseSelectedTarget) deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
                     var sprite = new FlxSprite();
                     if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
                     else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
                     sprite.setPosition(minX + sprite.width * 0.15, minY - sprite.height * 0.6);
-                    spriteGroup.add(sprite);
+                    deploymentSpriteGroups[j].add(sprite);
+                    deploymentSprites[j][i] = sprite;
+                    boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
                     break;
                 }
             }
         }
         SimulationState.deploymentUnits = boardDeployment;
+    }
+
+    private function cancelDeploy(x:Float, y:Float) {
+        for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
+            for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
+                var minX = deploymentBoardUpperLeftX + i * boardSprite[j][i].width;
+                var minY = deploymentBoardUpperLeftY + j * boardSprite[j][i].height;
+                var maxX = minX + boardSprite[j][i].width;
+                var maxY = minY + boardSprite[j][i].height;
+                if (x >= minX && x < maxX && y >= minY && y < maxY) {
+                    if (boardDeployment[j][i] == 0) return;
+                    boardDeployment[j][i] = 0;
+                    deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
+                    deploymentSprites[j][i] = new FlxSprite();
+                }
+            }
+        }
     }
 
     // When update frames, check the mouse status and call deploy if necessary
@@ -111,6 +136,8 @@ class DeploymentState extends FlxState
                 FlxG.mouse.unload();
                 _deployMenu.mouseSelectedTarget = 0;
             }
+        } else {
+            if (FlxG.mouse.pressedRight) cancelDeploy(FlxG.mouse.x, FlxG.mouse.y);
         }
 		super.update(elapsed);
 	}
