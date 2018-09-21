@@ -22,43 +22,45 @@ class DeploymentState extends FlxState
     1 -- zombie
     */
 
-	private var _deployMenu : DeploymentMenu;
-	private var showEnemyButton:FlxButton;
+    private var _deployMenu : DeploymentMenu;
+    private var showEnemyButton:FlxButton;
 
     private var deploymentSpriteGroups:Array<FlxTypedGroup<FlxSprite>>;
     private var deploymentSprites:Array<Array<FlxSprite>>;
 
-    // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
     public var boardDeployment:Array<Array<Int>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
 
-    // End variables
+    private var manaFlashTimer:Int;
+    private var manaTextStatus:Bool;
 
-	override public function create():Void
-	{
+    override public function create():Void
+    {
         _deployMenu = new DeploymentMenu();
-        add(_deployMenu);
         initDeploymentArea();
-		initShowEnemyButton();
-		super.create();
-	}
+        initShowEnemyButton();
+        add(_deployMenu);
+        super.create();
+    }
 
-	private function initShowEnemyButton():Void {
+    private function initShowEnemyButton():Void {
         showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
         showEnemyButton.updateHitbox();
         showEnemyButton.label.alignment = "center";
         add(showEnemyButton);
     }
 
-	private function showEnemy():Void {
+    private function showEnemy():Void {
         openSubState(new ShowEnemySubState(0xff000000));
     }
 
     // Initialize the board sprite array
     // Initialize the array that record the deployment result
     private function initDeploymentArea():Void {
+        manaFlashTimer = 0;
+        manaTextStatus = true;
         deploymentSpriteGroups = new Array<FlxTypedGroup<FlxSprite>>();
         deploymentSprites = new Array<Array<FlxSprite>>();
         boardSprite = new Array<Array<Tile>>();
@@ -82,6 +84,10 @@ class DeploymentState extends FlxState
     // After mouse released in (X, Y), this function will be call
     // Record the deplyment to the array
     private function deploy(x:Float, y:Float) {
+        if (_deployMenu._manaCurrent == 0) {
+            manaFlashTimer = 120;
+            return;
+        }
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 var minX = deploymentBoardUpperLeftX + i * boardSprite[j][i].width;
@@ -102,7 +108,10 @@ class DeploymentState extends FlxState
                 }
             }
         }
+        calculateManaCost();
         SimulationState.deploymentUnits = boardDeployment;
+        FlxG.mouse.unload();
+        _deployMenu.mouseSelectedTarget = 0;
     }
 
     private function cancelDeploy(x:Float, y:Float) {
@@ -120,11 +129,35 @@ class DeploymentState extends FlxState
                 }
             }
         }
+        calculateManaCost();
+    }
+
+    private function calculateManaCost() {
+        var cost:Int = 0;
+        for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
+            for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
+                if (boardDeployment[j][i] == 1) cost += 1;
+                else if (boardDeployment[j][i] == 2) cost += 1;
+            }
+        }
+        _deployMenu._manaCurrent = _deployMenu._manaMax - cost;
+        _deployMenu.updateMPText();
     }
 
     // When update frames, check the mouse status and call deploy if necessary
-	override public function update(elapsed:Float):Void
-	{
+    override public function update(elapsed:Float):Void
+    {
+        if (manaFlashTimer > 0) {
+            manaFlashTimer -= 1;
+            if (manaFlashTimer % 12 == 0) {
+                if (manaTextStatus) _deployMenu.MPTextRed();
+                else _deployMenu.MPTextWhite();
+                manaTextStatus = !manaTextStatus;
+            }
+        } else if (!manaTextStatus) {
+            _deployMenu.MPTextWhite();
+            manaTextStatus = true;
+        }
         if (_deployMenu.mouseSelectedTarget != 0) {
             // Right click to cancel
             if (FlxG.mouse.pressedRight) {
@@ -133,12 +166,10 @@ class DeploymentState extends FlxState
             // Left click to deploy
             } else if (FlxG.mouse.justPressed) {
                 deploy(FlxG.mouse.x, FlxG.mouse.y);
-                FlxG.mouse.unload();
-                _deployMenu.mouseSelectedTarget = 0;
             }
         } else {
             if (FlxG.mouse.pressedRight) cancelDeploy(FlxG.mouse.x, FlxG.mouse.y);
         }
-		super.update(elapsed);
-	}
+        super.update(elapsed);
+    }
 }

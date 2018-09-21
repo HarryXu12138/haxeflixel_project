@@ -20,6 +20,9 @@ class DeploymentMenu extends FlxGroup
 	var _pauseMenu : PauseMenu;
 	var _startRoundButton : FlxButton;
 
+    public var _manaMax:Int = 10;
+    public var _manaCurrent:Int = 10;
+
     public var mouseSelectedTarget = 0;
 
 	public function new():Void
@@ -90,9 +93,21 @@ class DeploymentMenu extends FlxGroup
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
 		mpText.setFormat(20, FlxColor.WHITE, CENTER);
-		mpText.text = "MP: 10/10";
+		mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
 		add(mpText);
 	}
+
+    public function MPTextRed():Void {
+        mpText.setFormat(20, FlxColor.RED, CENTER);
+    }
+
+    public function MPTextWhite():Void {
+        mpText.setFormat(20, FlxColor.WHITE, CENTER);
+    }
+
+    public function updateMPText():Void {
+        mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
+    }
 
 	function initZombieButton():Void
 	{

@@ -26,7 +26,7 @@ class SimulationHUD extends FlxGroup
 	{
 		super();
         initSimHUD();
-		
+
 		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
 	}
@@ -42,11 +42,11 @@ class SimulationHUD extends FlxGroup
 	function initMPText():Void
 	{
 		mpText = new FlxText(FlxG.width * 0.01, FlxG.height * 0.05, 155); // x, y, width
-		mpText.setFormat(20, FlxColor.PINK, CENTER); 
+		mpText.setFormat(20, FlxColor.PINK, CENTER);
 		mpText.text = "MP: 10/10";
 		add(mpText);
 	}
-	
+
 	function initPauseButton():Void
 	{
 		_pauseButton = new FlxButton(0, 0, "||", pause);
@@ -54,7 +54,7 @@ class SimulationHUD extends FlxGroup
 
 		_pauseButton.scale.set(0.6,2);
 		_pauseButton.updateHitbox();
-		
+
 		_pauseButton.label.fieldWidth = _pauseButton.width;
         _pauseButton.label.alignment = "center";
 
@@ -73,7 +73,7 @@ class SimulationHUD extends FlxGroup
 
 		_fastForwardButton.scale.set(0.6,2);
 		_fastForwardButton.updateHitbox();
-		
+
 		_fastForwardButton.label.fieldWidth = _fastForwardButton.width;
         _fastForwardButton.label.alignment = "center";
 
@@ -92,7 +92,7 @@ class SimulationHUD extends FlxGroup
 
 		_slowDownButton.scale.set(0.6,2);
 		_slowDownButton.updateHitbox();
-		
+
 		_slowDownButton.label.fieldWidth = _slowDownButton.width;
         _slowDownButton.label.alignment = "center";
 
@@ -108,7 +108,7 @@ class SimulationHUD extends FlxGroup
 	{
 		if(FlxG.timeScale == 0)
 			return;
-			
+
 		_pauseMenu.show(FlxG.timeScale);
 		FlxG.timeScale = 0;
 	}
