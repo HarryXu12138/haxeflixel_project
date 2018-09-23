@@ -21,6 +21,9 @@ class DeploymentMenu extends FlxGroup
 	var _pauseMenu : PauseMenu;
 	var _startRoundButton : FlxButton;
 
+    public var _manaMax:Int = 10;
+    public var _manaCurrent:Int = 10;
+
     public var mouseSelectedTarget = 0;
 
 	public function new():Void
@@ -91,9 +94,21 @@ class DeploymentMenu extends FlxGroup
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
 		mpText.setFormat(20, FlxColor.WHITE, CENTER);
-		mpText.text = "MP: 10/10";
+		mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
 		add(mpText);
 	}
+
+    public function MPTextRed():Void {
+        mpText.setFormat(20, FlxColor.RED, CENTER);
+    }
+
+    public function MPTextWhite():Void {
+        mpText.setFormat(20, FlxColor.WHITE, CENTER);
+    }
+
+    public function updateMPText():Void {
+        mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
+    }
 
 	function initZombieButton():Void
 	{
@@ -171,9 +186,11 @@ class DeploymentMenu extends FlxGroup
         mouseSelectedTarget = 1;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
-        sprite.loadGraphic("assets/images/zombie.jpg");
+        sprite.loadGraphic("assets/images/Zombie.png");
+        var xOffset:Int = -Std.int(sprite.width * 0.4);
+        var yOffset:Int = -Std.int(sprite.height * 0.9);
 
-        FlxG.mouse.load(sprite.pixels);
+        FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
 
 	private function selectSkeleton():Void
@@ -184,9 +201,11 @@ class DeploymentMenu extends FlxGroup
 		mouseSelectedTarget = 2;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
-        sprite.loadGraphic("assets/images/zombie.jpg");
+        sprite.loadGraphic("assets/images/Skeleton.png");
+        var xOffset:Int = -Std.int(sprite.width * 0.4);
+        var yOffset:Int = -Std.int(sprite.height * 0.9);
 
-        FlxG.mouse.load(sprite.pixels);
+        FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
 	}
 
 	function pause():Void
