@@ -25,17 +25,26 @@ class DeploymentState extends FlxState
 
     // Deployment area variables
     private var boardSprite:Array<Array<Tile>>;
-    private var boardDeployment:Array<Array<Int>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
-
+	
+	
+	private var levelData:LevelData;
     // End variables
+	
+	public function new(newLevelData:LevelData)
+	{
+		
+		levelData = newLevelData;
+		super();
+	}
+	
 
 	override public function create():Void
 	{
 		
         initDeploymentArea();
-		_deployMenu = new DeploymentMenu();
+		_deployMenu = new DeploymentMenu(levelData);
 		add(_deployMenu);
 		initShowEnemyButton();
 		
@@ -57,13 +66,10 @@ class DeploymentState extends FlxState
     // Initialize the array that record the deployment result
     private function initDeploymentArea():Void {
         boardSprite = new Array<Array<Tile>>();
-        boardDeployment = new Array<Array<Int>>();
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
-            boardDeployment[j] = new Array<Int>();
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 boardSprite[j].push(new Tile());
-                boardDeployment[j].push(0);
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
             }
@@ -80,7 +86,7 @@ class DeploymentState extends FlxState
                 var maxX = minX + boardSprite[j][i].width;
                 var maxY = minY + boardSprite[j][i].height;
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
-                    boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
+					levelData.setUndeadUnitAtPosition(i, j, _deployMenu.mouseSelectedTarget);
                     var sprite = new FlxSprite();
                     sprite.setPosition(minX, minY);
                     add(sprite);

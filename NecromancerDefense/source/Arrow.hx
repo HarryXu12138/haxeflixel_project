@@ -9,7 +9,7 @@ import flixel.util.FlxColor;
 class Arrow extends Entity 
 {
 	
-	static var SPEED = 150;
+	static var SPEED = 450;
 	static var DAMAGE = 1;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 

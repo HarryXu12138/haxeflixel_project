@@ -20,6 +20,4 @@ class Undead extends Entity
 		return super.overlapInLane(other) && Std.is(other, Human);
 	}
 	
-	
-	
 }

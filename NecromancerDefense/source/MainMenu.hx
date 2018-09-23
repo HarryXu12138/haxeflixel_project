@@ -36,6 +36,6 @@ class MainMenu extends FlxState
 
     function clickPlay():Void
 	{
-		FlxG.switchState(new DeploymentState());
+		FlxG.switchState(new DeploymentState(LevelFactory.generateLevel1()));
 	}
 }

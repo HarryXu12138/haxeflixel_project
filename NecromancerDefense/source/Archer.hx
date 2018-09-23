@@ -7,8 +7,8 @@ import flixel.util.FlxColor;
 class Archer extends Human 
 {
 
-	static var STARTING_HEALTH:Int = 3;
-	static var ATTACK_DELAY:Int = 72;
+	static var STARTING_HEALTH:Int = 5;
+	static var ATTACK_DELAY:Int = 150;
 	static var X_OFFSET:Int = -10;
 	static var Y_OFFSET:Int = 30;
 	
