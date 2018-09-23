@@ -72,7 +72,9 @@ class Entity extends FlxSprite
 	
 	public function die():Void
 	{
+		
 		kill();
+		alive = false;
 	}
 	
 	

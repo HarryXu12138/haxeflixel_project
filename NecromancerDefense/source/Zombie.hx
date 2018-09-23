@@ -6,7 +6,7 @@ import flixel.util.FlxColor;
  * ...
  * @author Jared Okun
  */
-class Zombie extends Entity 
+class Zombie extends Undead 
 {
 	
 	static var SPEED:Int = 150;
@@ -27,11 +27,6 @@ class Zombie extends Entity
 		_hp = STARTING_HEALTH;
 	}
 	
-	override public function overlapInLane(other:Entity):Bool
-	{
-		
-		return super.overlapInLane(other) && Std.is(other, Human);
-	}
 	
 	override public function act(lane:List<Entity>):Void
 	{
