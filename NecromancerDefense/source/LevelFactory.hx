@@ -10,7 +10,7 @@ class LevelFactory
 	static public function generateLevel1():LevelData
 	{
 		var level:LevelData = new LevelData(1);
-		level.setHumanUnitAtPosition(8, 0, 2);
+		level.setHumanUnitAtPosition(5, 0, 2);
 		level.setHumanUnitAtPosition(7, 0, 1);
 		level.setHumanUnitAtPosition(6, 0, 1);
 		level.setHumanUnitAtPosition(6, 1, 2);
