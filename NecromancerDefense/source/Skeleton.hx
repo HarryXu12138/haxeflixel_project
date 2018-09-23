@@ -10,7 +10,7 @@ class Skeleton extends Zombie
 {
 	
 	static var SPEED:Int = 250;
-	static var STARTING_HEALTH:Int = 2;
+	static var STARTING_HEALTH:Int = 10;
 	static var ATTACK_DELAY:Int = 12;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 

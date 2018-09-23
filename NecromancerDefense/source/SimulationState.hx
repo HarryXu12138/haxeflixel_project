@@ -53,8 +53,7 @@ class SimulationState extends FlxState
 				add(_board[y][x]);
 			}
 		}
-		placeUndeadUnits();
-		placeHumanUnits();
+		placeUnits();
 		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
@@ -97,36 +96,10 @@ class SimulationState extends FlxState
 		}
 		return amount >= 3;
 	}
-
-	private function placeUndeadUnits():Void
+	
+	private function placeUnits():Void
 	{
-		
-		for (y in 0..._levelData.getUndeadPlacementHeight())
-		{
-			for (x in 0..._levelData.getUndeadPlacementWidth())
-			{
-				var unit:Undead;
-				if (_levelData.getUndeadUnitAtPosition(x, y) == 1)
-				{
-					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
-					
-					entityGroup.add(unit);
-					_lanes[y].add(unit);
-				}
-				else if (_levelData.getUndeadUnitAtPosition(x, y) == 2)
-				{
-					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
-					
-					entityGroup.add(unit);
-					_lanes[y].add(unit);
-				}
-
-			}
-		}
-	}
-
-	private function placeHumanUnits():Void
-	{
+		if (_levelData.getHumanPlacementHeight() != _levelData.getUndeadPlacementHeight()) return;
 		for (y in 0..._levelData.getHumanPlacementHeight())
 		{
 			for (x in 0..._levelData.getHumanPlacementWidth())
@@ -141,6 +114,25 @@ class SimulationState extends FlxState
 				else if (_levelData.getHumanUnitAtPosition(x, y) == 2)
 				{
 					unit = new Archer(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height, entityGroup);
+					entityGroup.add(unit);
+					_lanes[y].add(unit);
+				}
+			}
+			
+			for (x in 0..._levelData.getUndeadPlacementWidth())
+			{
+				var unit:Undead;
+				if (_levelData.getUndeadUnitAtPosition(x, y) == 1)
+				{
+					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					
+					entityGroup.add(unit);
+					_lanes[y].add(unit);
+				}
+				else if (_levelData.getUndeadUnitAtPosition(x, y) == 2)
+				{
+					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
