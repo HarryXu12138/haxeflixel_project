@@ -24,7 +24,7 @@ class ShowEnemySubState extends FlxSubState {
     private var boardSprite:Array<Array<Tile>>;
     private var entitySprite:Array<Array<FlxSprite>>;
     private var boardUpperLeftX:Float = FlxG.width * 0.5;
-    private var boardUpperLeftY:Float = FlxG.height * 0.4;
+    private var boardUpperLeftY:Float = FlxG.height * 0.2;
     // End variables
 
     override public function create():Void {
@@ -46,9 +46,18 @@ class ShowEnemySubState extends FlxSubState {
     }
 
     private function initButtons():Void {
-        returnToDeploymentButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Return", returnToDeployment);
+        returnToDeploymentButton = new FlxButton(0, 0, "Return", returnToDeployment);
+        returnToDeploymentButton.scale.set(1.5,2);
         returnToDeploymentButton.updateHitbox();
+
+        returnToDeploymentButton.label.fieldWidth = returnToDeploymentButton.width;
         returnToDeploymentButton.label.alignment = "center";
+
+        returnToDeploymentButton.label.size = 10;
+        returnToDeploymentButton.label.offset.y -= 7;
+
+        returnToDeploymentButton.x = FlxG.width * 0.85;
+        returnToDeploymentButton.y = FlxG.height * 0.6;
         add(returnToDeploymentButton);
     }
 

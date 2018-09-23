@@ -112,9 +112,21 @@ class DeploymentState extends FlxUIState
 
     
     private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(0, 0, "Show Enemy", showEnemy);
+        //showEnemyButton.loadGraphic("assets/images/custom.png");
+
+        showEnemyButton.scale.set(1.5,2);
         showEnemyButton.updateHitbox();
+
+        showEnemyButton.label.fieldWidth = showEnemyButton.width;
         showEnemyButton.label.alignment = "center";
+
+        showEnemyButton.label.size = 10;
+        showEnemyButton.label.offset.y -= 7;
+
+        showEnemyButton.x = FlxG.width * 0.85;
+        showEnemyButton.y = FlxG.height * 0.6;
+
         add(showEnemyButton);
     }
 
