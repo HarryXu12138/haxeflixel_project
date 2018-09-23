@@ -29,7 +29,6 @@ class DeploymentState extends FlxState
     private var deploymentSprites:Array<Array<FlxSprite>>;
 
     private var boardSprite:Array<Array<Tile>>;
-    private var boardDeployment:Array<Array<Int>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
 
@@ -119,7 +118,7 @@ class DeploymentState extends FlxState
             }
         }
         calculateManaCost();
-        SimulationState.deploymentUnits = boardDeployment;
+        //SimulationState.deploymentUnits = boardDeployment;
         FlxG.mouse.unload();
         _deployMenu.mouseSelectedTarget = 0;
     }
@@ -132,8 +131,8 @@ class DeploymentState extends FlxState
                 var maxX = minX + boardSprite[j][i].width;
                 var maxY = minY + boardSprite[j][i].height;
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
-                    if (boardDeployment[j][i] == 0) return;
-                    boardDeployment[j][i] = 0;
+                    if (levelData.getUndeadUnitAtPosition(i, j) == 0) return;
+					levelData.setUndeadUnitAtPosition(i, j, 0);
                     deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
                     deploymentSprites[j][i] = new FlxSprite();
                 }
@@ -146,8 +145,8 @@ class DeploymentState extends FlxState
         var cost:Int = 0;
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
-                if (boardDeployment[j][i] == 1) cost += 1;
-                else if (boardDeployment[j][i] == 2) cost += 1;
+                if (levelData.getUndeadUnitAtPosition(i, j) == 1) cost += 1;
+                else if (levelData.getUndeadUnitAtPosition(i, j) == 2) cost += 1;
             }
         }
         _deployMenu._manaCurrent = _deployMenu._manaMax - cost;
