@@ -8,25 +8,22 @@ import flixel.group.FlxGroup;
  */
 class SimulationState extends FlxState
 {
-	
+
 	static var BOARD_WIDTH:Int = 8;
 	static var BOARD_HEIGHT:Int = 5;
-	
+
 	static var TOP_LEFT_X:Float = 0;
 	static var TOP_LEFT_Y:Float = 480;
-	
+
 	var _board:Array<Array<Tile>>;
-	
+
 	var _lanes:Array<List<Entity>>;
-	
 	private var _levelData:LevelData;
-	
 	var entityGroup:FlxGroup;
-	
 	static var entityOffsetY:Int = 424;
 	static var humanOffsetX:Int = 56;
 	static var zombieOffsetX:Int = -744;
-	
+
 	var _simulationHUD : SimulationHUD;
 	
 	public var beatenLanes:Array<Bool>;
@@ -100,7 +97,7 @@ class SimulationState extends FlxState
 		}
 		return amount >= 3;
 	}
-	
+
 	private function placeUndeadUnits():Void
 	{
 		
@@ -122,12 +119,12 @@ class SimulationState extends FlxState
 					
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
-				} 
-				
+				}
+
 			}
 		}
 	}
-	
+
 	private function placeHumanUnits():Void
 	{
 		for (y in 0..._levelData.getHumanPlacementHeight())
@@ -150,5 +147,5 @@ class SimulationState extends FlxState
 			}
 		}
 	}
-	
+
 }
