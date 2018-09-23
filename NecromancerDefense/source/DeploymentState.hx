@@ -29,19 +29,30 @@ class DeploymentState extends FlxState
     private var deploymentSprites:Array<Array<FlxSprite>>;
 
     private var boardSprite:Array<Array<Tile>>;
-    public var boardDeployment:Array<Array<Int>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
 
     private var manaFlashTimer:Int;
     private var manaTextStatus:Bool;
+	
+	
+	private var levelData:LevelData;
+    // End variables
+	
+	public function new(newLevelData:LevelData)
+	{
+		
+		levelData = newLevelData;
+		super();
+	}
+	
 
     override public function create():Void
     {
-        _deployMenu = new DeploymentMenu();
         initDeploymentArea();
+		_deployMenu = new DeploymentMenu(levelData);
+		add(_deployMenu);
         initShowEnemyButton();
-        add(_deployMenu);
         super.create();
     }
 
@@ -64,15 +75,12 @@ class DeploymentState extends FlxState
         deploymentSpriteGroups = new Array<FlxTypedGroup<FlxSprite>>();
         deploymentSprites = new Array<Array<FlxSprite>>();
         boardSprite = new Array<Array<Tile>>();
-        boardDeployment = new Array<Array<Int>>();
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             deploymentSpriteGroups.push(new FlxTypedGroup<FlxSprite>());
             boardSprite.push(new Array<Tile>());
-            boardDeployment.push(new Array<Int>());
             deploymentSprites.push(new Array<FlxSprite>());
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
                 boardSprite[j].push(new Tile());
-                boardDeployment[j].push(0);
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
                 deploymentSprites[j].push(new FlxSprite());
@@ -95,21 +103,22 @@ class DeploymentState extends FlxState
                 var maxX = minX + boardSprite[j][i].width;
                 var maxY = minY + boardSprite[j][i].height;
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
-                    if (boardDeployment[j][i] == _deployMenu.mouseSelectedTarget) return;
-                    if (boardDeployment[j][i] != 0 && boardDeployment[j][i] != _deployMenu.mouseSelectedTarget) deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
+                    if(levelData.getUndeadUnitAtPosition(i, j) == _deployMenu.mouseSelectedTarget) return;
+                    if(levelData.getUndeadUnitAtPosition(i, j) != 0 && levelData.getUndeadUnitAtPosition(i, j) != _deployMenu.mouseSelectedTarget) deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
                     var sprite = new FlxSprite();
                     if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
                     else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
+                   
                     sprite.setPosition(minX + sprite.width * 0.15, minY - sprite.height * 0.6);
                     deploymentSpriteGroups[j].add(sprite);
                     deploymentSprites[j][i] = sprite;
-                    boardDeployment[j][i] = _deployMenu.mouseSelectedTarget;
+                    levelData.setUndeadUnitAtPosition(i, j, _deployMenu.mouseSelectedTarget);
                     break;
                 }
             }
         }
         calculateManaCost();
-        SimulationState.deploymentUnits = boardDeployment;
+        //SimulationState.deploymentUnits = boardDeployment;
         FlxG.mouse.unload();
         _deployMenu.mouseSelectedTarget = 0;
     }
@@ -122,8 +131,8 @@ class DeploymentState extends FlxState
                 var maxX = minX + boardSprite[j][i].width;
                 var maxY = minY + boardSprite[j][i].height;
                 if (x >= minX && x < maxX && y >= minY && y < maxY) {
-                    if (boardDeployment[j][i] == 0) return;
-                    boardDeployment[j][i] = 0;
+                    if (levelData.getUndeadUnitAtPosition(i, j) == 0) return;
+					levelData.setUndeadUnitAtPosition(i, j, 0);
                     deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
                     deploymentSprites[j][i] = new FlxSprite();
                 }
@@ -136,8 +145,8 @@ class DeploymentState extends FlxState
         var cost:Int = 0;
         for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
-                if (boardDeployment[j][i] == 1) cost += 1;
-                else if (boardDeployment[j][i] == 2) cost += 1;
+                if (levelData.getUndeadUnitAtPosition(i, j) == 1) cost += 1;
+                else if (levelData.getUndeadUnitAtPosition(i, j) == 2) cost += 1;
             }
         }
         _deployMenu._manaCurrent = _deployMenu._manaMax - cost;

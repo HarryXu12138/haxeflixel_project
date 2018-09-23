@@ -19,17 +19,16 @@ class DeploymentMenu extends FlxGroup
 	var _pauseButton : FlxButton;
 	var _pauseMenu : PauseMenu;
 	var _startRoundButton : FlxButton;
-
     public var _manaMax:Int = 10;
     public var _manaCurrent:Int = 10;
-
+	var _levelData:LevelData;
     public var mouseSelectedTarget = 0;
 
-	public function new():Void
+	public function new(newLevelData:LevelData):Void
 	{
 		super();
         initDeployMenu();
-
+		_levelData = newLevelData;
 		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
 	}
@@ -173,7 +172,7 @@ class DeploymentMenu extends FlxGroup
 	{
 		if(FlxG.timeScale == 0)
 			return;
-        FlxG.switchState(new SimulationState());
+        FlxG.switchState(new SimulationState(_levelData));
 	}
 
 	private function selectZombie():Void
