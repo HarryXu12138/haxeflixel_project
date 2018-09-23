@@ -9,10 +9,14 @@ import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 
+// Tooltips
+import flixel.addons.ui.FlxUIButton;
+
 class DeploymentMenu extends FlxGroup
 {
-	var _zombieButton : FlxButton;
-	var _skeletonButton : FlxButton;
+	public var zombieButton : FlxUIButton;
+	public var skeletonButton : FlxUIButton;
+
 	var _panel : FlxSprite;
 	var mpText : FlxText;
 
@@ -43,22 +47,6 @@ class DeploymentMenu extends FlxGroup
 		initStartButton();
 	}
 
-	public function hide(): Void
-	{
-        _zombieButton.kill();
-        _skeletonButton.kill();
-        _panel.kill();
-        mpText.kill();
-	}
-
-    public function show(): Void
-	{
-        _zombieButton.revive();
-        _skeletonButton.revive();
-        _panel.revive();
-        mpText.revive();
-	}
-
 	function initPauseButton():Void
 	{
 		_pauseButton = new FlxButton(0, 0, "||", pause);
@@ -78,7 +66,6 @@ class DeploymentMenu extends FlxGroup
 		add(_pauseButton);
 	}
 
-
 	function initPanel():Void
 	{
 		_panel = new FlxSprite();
@@ -87,6 +74,7 @@ class DeploymentMenu extends FlxGroup
 
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.025, FlxG.height * 0.1, FlxG.width * 0.17, FlxG.height * 0.85, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
 	}
+
 
 	function initMPText():Void
 	{
@@ -110,43 +98,44 @@ class DeploymentMenu extends FlxGroup
 
 	function initZombieButton():Void
 	{
-		_zombieButton = new FlxButton(0, 0, "Zombie", selectZombie);
-		//_zombieButton.loadGraphic("assets/images/custom.png");
+		zombieButton = new FlxUIButton(0, 0, "Zombie", selectZombie);
+		//zombieButton.loadGraphic("assets/images/custom.png");
 
-		_zombieButton.scale.set(2,6);
-		_zombieButton.updateHitbox();
+		zombieButton.scale.set(2,6);
+		zombieButton.updateHitbox();
 
-		_zombieButton.label.fieldWidth = _zombieButton.width;
-        _zombieButton.label.alignment = "center";
+		zombieButton.label.fieldWidth = zombieButton.width;
+        zombieButton.label.alignment = "center";
 
-		_zombieButton.label.size = 20;
-		_zombieButton.label.offset.y -= 40;
+		zombieButton.label.size = 20;
+		zombieButton.label.offset.y -= 40;
 
-		_zombieButton.x = FlxG.width * 0.05;
-		_zombieButton.y = FlxG.height * 0.3;
+		zombieButton.x = FlxG.width * 0.05;
+		zombieButton.y = FlxG.height * 0.3;
 
-		add(_zombieButton);
+		add(zombieButton);
 	}
 
 	function initSkeletonButton():Void
 	{
-		_skeletonButton = new FlxButton(0, 0, "Skeleton", selectSkeleton);
-		//_skeletonButton.loadGraphic("assets/images/custom.png");
+		skeletonButton = new FlxUIButton(0, 0, "Skeleton", selectSkeleton);
+		//skeletonButton.loadGraphic("assets/images/custom.png");
 
-		_skeletonButton.scale.set(2,6);
-		_skeletonButton.updateHitbox();
+		skeletonButton.scale.set(2,6);
+		skeletonButton.updateHitbox();
 
-		_skeletonButton.label.fieldWidth = _skeletonButton.width;
-        _skeletonButton.label.alignment = "center";
+		skeletonButton.label.fieldWidth = skeletonButton.width;
+        skeletonButton.label.alignment = "center";
 
-		_skeletonButton.label.size = 20;
-		_skeletonButton.label.offset.y -= 40;
+		skeletonButton.label.size = 20;
+		skeletonButton.label.offset.y -= 40;
 
-		_skeletonButton.x = FlxG.width * 0.05;
-		_skeletonButton.y = FlxG.height * 0.5;
+		skeletonButton.x = FlxG.width * 0.05;
+		skeletonButton.y = FlxG.height * 0.5;
 
-		add(_skeletonButton);
+		add(skeletonButton);
 	}
+	
 
 	function initStartButton():Void
 	{
@@ -177,6 +166,9 @@ class DeploymentMenu extends FlxGroup
 
 	private function selectZombie():Void
 	{
+		if(FlxG.timeScale == 0)
+			return;
+
         mouseSelectedTarget = 1;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
@@ -189,6 +181,9 @@ class DeploymentMenu extends FlxGroup
 
 	private function selectSkeleton():Void
 	{
+		if(FlxG.timeScale == 0)
+			return;
+
 		mouseSelectedTarget = 2;
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();

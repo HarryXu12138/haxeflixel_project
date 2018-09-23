@@ -13,14 +13,33 @@ import flixel.math.FlxPoint;
 import flixel.group.FlxGroup;
 import GlobalValues;
 
+// Tooltip buttons
+import flixel.addons.ui.Anchor;
+import flixel.addons.ui.BorderDef;
+import flixel.addons.ui.FlxUIButton;
+import flixel.addons.ui.FlxUISprite;
+import flixel.addons.ui.FlxUIText;
+import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
+import flixel.addons.ui.FlxUITypedButton;
+import flixel.addons.ui.FontDef;
+import flixel.math.FlxPoint;
+import flixel.addons.ui.FlxUIState;
+import openfl.text.TextFormat;
+import flixel.text.FlxText.FlxTextBorderStyle;
+import openfl.text.TextFormatAlign;
+import flixel.addons.ui.FlxUITooltipManager;
 
-class DeploymentState extends FlxState
+import flixel.system.FlxAssets;
+
+class DeploymentState extends FlxUIState
 {
     /*
     Deployed Board will be an array of integers.
     0 -- nothing
     1 -- zombie
     */
+
+    var zombieButton : FlxUIButton;
 
     private var _deployMenu : DeploymentMenu;
     private var showEnemyButton:FlxButton;
@@ -49,23 +68,86 @@ class DeploymentState extends FlxState
 
     override public function create():Void
     {
-        initDeploymentArea();
 		_deployMenu = new DeploymentMenu(levelData);
+        initDeploymentArea();
 		add(_deployMenu);
         initShowEnemyButton();
+        
         super.create();
+        
+        add(_deployMenu);
+        initToolTips();
     }
 
+    function initToolTips():Void
+	{
+        var largerFont = makeFontDef("nokia", 12, TextFormatAlign.LEFT);
+
+        _deployMenu.zombieButton = addToolTip("Zombie", _deployMenu.zombieButton, "Cost: 1 MP", "Moves slower, but has more HP.", 
+        {
+            titleWidth: 120,
+            bodyWidth: 120,
+            titleFormat:largerFont,
+            bodyFormat:largerFont,
+            leftPadding:5, 
+            rightPadding:5, 
+            topPadding:5, 
+            bottomPadding:5, 
+        });
+        _deployMenu.skeletonButton = addToolTip("Skeleton", _deployMenu.skeletonButton, "Cost: 1 MP", "Moves faster, but has less HP.", 
+        {
+            titleWidth: 120,
+            bodyWidth: 120,
+            titleFormat:largerFont,
+            bodyFormat:largerFont,
+            leftPadding:5, 
+            rightPadding:5, 
+            topPadding:5, 
+            bottomPadding:5, 
+        });
+	}
+
+    // Taken from Haxeflixel Tooltips demo code
+    function makeFontDef(name:String, size:Int, alignment = null, isBold:Bool = true, color:FlxColor = FlxColor.BLACK, extension:String = ".ttf"):FontDef
+	{
+		var suffix:String = isBold ? "b" : "";
+		return new FontDef(name, extension, "assets/fonts/" + name + suffix + extension, new TextFormat(null, size, color, isBold, null, null, null, null, alignment));
+	}
+
+	// Modified from Haxeflixel Tooltips demo code
+	function addToolTip(name:String="", b:FlxUIButton, title:String = "", body:String = "", anchor:Anchor = null, style:FlxUITooltipStyle = null):FlxUIButton
+	{
+		tooltips.add(b, { title:title, body:body, anchor:anchor, style:style } );
+		return b;
+	}
+
+    
     private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(FlxG.width * 0.8, FlxG.height * 0.8, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(0, 0, "Show Enemy", showEnemy);
+        //showEnemyButton.loadGraphic("assets/images/custom.png");
+
+        showEnemyButton.scale.set(1.5,2);
         showEnemyButton.updateHitbox();
+
+        showEnemyButton.label.fieldWidth = showEnemyButton.width;
         showEnemyButton.label.alignment = "center";
+
+        showEnemyButton.label.size = 10;
+        showEnemyButton.label.offset.y -= 7;
+
+        showEnemyButton.x = FlxG.width * 0.85;
+        showEnemyButton.y = FlxG.height * 0.6;
+
         add(showEnemyButton);
     }
 
-    private function showEnemy():Void {
+	private function showEnemy():Void {
+        if(FlxG.timeScale == 0)
+            return;
+
+        // We can only call openSubState inside a state class
         openSubState(new ShowEnemySubState(0xff000000));
-    }
+	}
 
     // Initialize the board sprite array
     // Initialize the array that record the deployment result
