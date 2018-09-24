@@ -124,7 +124,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
 		_panel.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT, true);
 		add(_panel);		
 
-		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.2, FlxG.width * 0.3, FlxG.height * 0.6, 10, 10, FlxColor.fromRGB(81, 85, 91, 256));
+		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.2, FlxG.width * 0.3, FlxG.height * 0.6, 10, 10, FlxColor.fromRGB(61, 57, 66, 256));
 	}
 
 	function initBlackFilter():Void

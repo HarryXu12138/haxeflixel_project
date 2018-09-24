@@ -68,10 +68,11 @@ class DeploymentState extends FlxUIState
 
     override public function create():Void
     {
+        initBackground();
+        initShowEnemyButton();
 		_deployMenu = new DeploymentMenu(levelData);
         initDeploymentArea();
 		add(_deployMenu);
-        initShowEnemyButton();
         
         super.create();
         
@@ -122,6 +123,13 @@ class DeploymentState extends FlxUIState
 	}
 
     
+    function initBackground():Void{
+        var background = new FlxSprite(0,20);
+        background.alpha = 0.7;
+		background.loadGraphic("assets/images/NECROBG.png");
+		add(background);
+    }
+
     private function initShowEnemyButton():Void {
         showEnemyButton = new FlxButton(0, 0, "Show Enemy", showEnemy);
         //showEnemyButton.loadGraphic("assets/images/custom.png");
@@ -238,6 +246,11 @@ class DeploymentState extends FlxUIState
     // When update frames, check the mouse status and call deploy if necessary
     override public function update(elapsed:Float):Void
     {
+        super.update(elapsed);
+
+        if(FlxG.timeScale == 0)
+            return;
+
         if (manaFlashTimer > 0) {
             manaFlashTimer -= 1;
             if (manaFlashTimer % 12 == 0) {
@@ -261,6 +274,5 @@ class DeploymentState extends FlxUIState
         } else {
             if (FlxG.mouse.pressedRight) cancelDeploy(FlxG.mouse.x, FlxG.mouse.y);
         }
-        super.update(elapsed);
     }
 }

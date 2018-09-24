@@ -29,8 +29,16 @@ class ShowEnemySubState extends FlxSubState {
 
     override public function create():Void {
         super.create();
+        initBackground();
         initBoardArea();
         initButtons();
+    }
+
+    function initBackground():Void{
+        var background = new FlxSprite(0,20);
+        background.alpha = 0.7;
+		background.loadGraphic("assets/images/NECROBG.png");
+		add(background);
     }
 
     private function initBoardArea():Void {

@@ -170,6 +170,10 @@ class DeploymentMenu extends FlxGroup
 			return;
 
         mouseSelectedTarget = 1;
+
+		if(_manaCurrent <= 0)
+			return;
+
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
         sprite.loadGraphic("assets/images/Zombie.png");
@@ -185,6 +189,10 @@ class DeploymentMenu extends FlxGroup
 			return;
 
 		mouseSelectedTarget = 2;
+
+		if(_manaCurrent <= 0)
+			return;
+
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
         sprite.loadGraphic("assets/images/Skeleton.png");
