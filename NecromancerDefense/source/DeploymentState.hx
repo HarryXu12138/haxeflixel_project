@@ -203,7 +203,6 @@ class DeploymentState extends FlxUIState
             }
         }
         calculateManaCost();
-        //SimulationState.deploymentUnits = boardDeployment;
         FlxG.mouse.unload();
         _deployMenu.mouseSelectedTarget = 0;
     }
