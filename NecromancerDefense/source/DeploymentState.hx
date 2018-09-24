@@ -39,8 +39,6 @@ class DeploymentState extends FlxUIState
     1 -- zombie
     */
 
-    var zombieButton : FlxUIButton;
-
     private var _deployMenu : DeploymentMenu;
     private var showEnemyButton:FlxButton;
 
@@ -117,7 +115,6 @@ class DeploymentState extends FlxUIState
 		tooltips.add(b, { title:title, body:body, anchor:anchor, style:style } );
 		return b;
 	}
-
     
     function initBackground():Void{
         var background = new FlxSprite(0,20);
