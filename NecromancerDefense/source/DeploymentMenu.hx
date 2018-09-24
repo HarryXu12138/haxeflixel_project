@@ -14,6 +14,8 @@ import flixel.addons.ui.FlxUIButton;
 
 class DeploymentMenu extends FlxGroup
 {
+    private var _confirmationWindow : ConfirmationWindow;
+
 	public var zombieButton : FlxUIButton;
 	public var skeletonButton : FlxUIButton;
 
@@ -33,6 +35,8 @@ class DeploymentMenu extends FlxGroup
 		super();
         initDeployMenu();
 		_levelData = newLevelData;
+		_confirmationWindow = new ConfirmationWindow();
+		add(_confirmationWindow);
 		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
 	}
@@ -161,7 +165,8 @@ class DeploymentMenu extends FlxGroup
 	{
 		if(FlxG.timeScale == 0)
 			return;
-        FlxG.switchState(new SimulationState(_levelData));
+
+        _confirmationWindow.show(FlxG.timeScale, _manaCurrent, _levelData);
 	}
 
 	private function selectZombie():Void

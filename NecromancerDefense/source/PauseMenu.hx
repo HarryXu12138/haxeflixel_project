@@ -47,7 +47,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
         _quitButton.kill();
 	}
 
-    public function show(currentTime): Void
+    public function show(currentTime:Float): Void
 	{
 		_blackFilter.revive();
 		_panel.revive();
