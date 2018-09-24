@@ -46,7 +46,7 @@ class DeploymentState extends FlxUIState
     private var deploymentSprites:Array<Array<FlxSprite>>;
 
     private var boardSprite:Array<Array<Tile>>;
-    private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
+    private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.25;
     private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.37;
 
     private var manaFlashTimer:Int;
@@ -124,20 +124,20 @@ class DeploymentState extends FlxUIState
     }
 
     private function initShowEnemyButton():Void {
-        showEnemyButton = new FlxButton(0, 0, "Show Enemy", showEnemy);
+        showEnemyButton = new FlxButton(0, 0, "Show\nEnemy", showEnemy);
         //showEnemyButton.loadGraphic("assets/images/custom.png");
 
-        showEnemyButton.scale.set(1.5,2);
+        showEnemyButton.scale.set(1.2,4.2);
         showEnemyButton.updateHitbox();
 
         showEnemyButton.label.fieldWidth = showEnemyButton.width;
         showEnemyButton.label.alignment = "center";
 
-        showEnemyButton.label.size = 13;
-        showEnemyButton.label.offset.y -= 7;
+        showEnemyButton.label.size = 14;
+        showEnemyButton.label.offset.y -= 18;
 
-        showEnemyButton.x = FlxG.width * 0.83;
-        showEnemyButton.y = FlxG.height * 0.3;
+        showEnemyButton.x = FlxG.width * 0.9;
+        showEnemyButton.y = FlxG.height * 0.38;
 
         add(showEnemyButton);
     }
