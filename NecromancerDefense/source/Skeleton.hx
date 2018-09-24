@@ -16,7 +16,11 @@ class Skeleton extends Zombie
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(48, 96, FlxColor.WHITE);
+		loadGraphic("assets/images/SKELETON_WALK.png", true, 205, 126);
+		scale.set(0.5, 0.5);
+		updateHitbox();
+		animation.add("walk", [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
+		animation.play("walk");
 		movementSpeed = SPEED;
 		velocity.set(movementSpeed, 0);
 		attackDelay = ATTACK_DELAY;
