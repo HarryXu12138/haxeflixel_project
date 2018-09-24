@@ -24,7 +24,7 @@ class ShowEnemySubState extends FlxSubState {
     private var boardSprite:Array<Array<Tile>>;
     private var entitySprite:Array<Array<FlxSprite>>;
     private var boardUpperLeftX:Float = FlxG.width * 0.5;
-    private var boardUpperLeftY:Float = FlxG.height * 0.2;
+    private var boardUpperLeftY:Float = FlxG.height * 0.37;
     // End variables
 
     private var levelData:LevelData;
@@ -67,11 +67,11 @@ class ShowEnemySubState extends FlxSubState {
         returnToDeploymentButton.label.fieldWidth = returnToDeploymentButton.width;
         returnToDeploymentButton.label.alignment = "center";
 
-        returnToDeploymentButton.label.size = 10;
+        returnToDeploymentButton.label.size = 15;
         returnToDeploymentButton.label.offset.y -= 7;
 
-        returnToDeploymentButton.x = FlxG.width * 0.85;
-        returnToDeploymentButton.y = FlxG.height * 0.6;
+        returnToDeploymentButton.x = FlxG.width * 0.83;
+        returnToDeploymentButton.y = FlxG.height * 0.3;
         add(returnToDeploymentButton);
     }
 
