@@ -47,7 +47,7 @@ class DeploymentState extends FlxUIState
 
     private var boardSprite:Array<Array<Tile>>;
     private var deploymentBoardUpperLeftX:Float = FlxG.width * 0.3;
-    private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.2;
+    private var deploymentBoardUpperLeftY:Float = FlxG.height * 0.37;
 
     private var manaFlashTimer:Int;
     private var manaTextStatus:Bool;
@@ -133,11 +133,11 @@ class DeploymentState extends FlxUIState
         showEnemyButton.label.fieldWidth = showEnemyButton.width;
         showEnemyButton.label.alignment = "center";
 
-        showEnemyButton.label.size = 10;
+        showEnemyButton.label.size = 13;
         showEnemyButton.label.offset.y -= 7;
 
-        showEnemyButton.x = FlxG.width * 0.85;
-        showEnemyButton.y = FlxG.height * 0.6;
+        showEnemyButton.x = FlxG.width * 0.83;
+        showEnemyButton.y = FlxG.height * 0.3;
 
         add(showEnemyButton);
     }
