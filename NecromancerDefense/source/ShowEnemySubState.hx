@@ -27,10 +27,16 @@ class ShowEnemySubState extends FlxSubState {
     private var boardUpperLeftY:Float = FlxG.height * 0.2;
     // End variables
 
+    private var levelData:LevelData;
+
     override public function create():Void {
         super.create();
         initBoardArea();
         initButtons();
+    }
+
+    public function updateLevelData(newLevelData:LevelData) {
+        levelData = newLevelData;
     }
 
     private function initBoardArea():Void {

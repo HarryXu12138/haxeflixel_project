@@ -53,29 +53,25 @@ class DeploymentState extends FlxUIState
 
     private var manaFlashTimer:Int;
     private var manaTextStatus:Bool;
-	
-	
+
+
 	private var levelData:LevelData;
     // End variables
-	
+
 	public function new(newLevelData:LevelData)
 	{
-		
 		levelData = newLevelData;
 		super();
 	}
-	
+
 
     override public function create():Void
     {
-		_deployMenu = new DeploymentMenu(levelData);
-        initDeploymentArea();
-		add(_deployMenu);
-        initShowEnemyButton();
-        
         super.create();
-        
+		_deployMenu = new DeploymentMenu(levelData);
         add(_deployMenu);
+        initDeploymentArea();
+        initShowEnemyButton();
         initToolTips();
     }
 
@@ -83,27 +79,27 @@ class DeploymentState extends FlxUIState
 	{
         var largerFont = makeFontDef("nokia", 12, TextFormatAlign.LEFT);
 
-        _deployMenu.zombieButton = addToolTip("Zombie", _deployMenu.zombieButton, "Cost: 1 MP", "Moves slower, but has more HP.", 
+        _deployMenu.zombieButton = addToolTip("Zombie", _deployMenu.zombieButton, "Cost: 1 MP", "Moves slower, but has more HP.",
         {
             titleWidth: 120,
             bodyWidth: 120,
             titleFormat:largerFont,
             bodyFormat:largerFont,
-            leftPadding:5, 
-            rightPadding:5, 
-            topPadding:5, 
-            bottomPadding:5, 
+            leftPadding:5,
+            rightPadding:5,
+            topPadding:5,
+            bottomPadding:5,
         });
-        _deployMenu.skeletonButton = addToolTip("Skeleton", _deployMenu.skeletonButton, "Cost: 1 MP", "Moves faster, but has less HP.", 
+        _deployMenu.skeletonButton = addToolTip("Skeleton", _deployMenu.skeletonButton, "Cost: 1 MP", "Moves faster, but has less HP.",
         {
             titleWidth: 120,
             bodyWidth: 120,
             titleFormat:largerFont,
             bodyFormat:largerFont,
-            leftPadding:5, 
-            rightPadding:5, 
-            topPadding:5, 
-            bottomPadding:5, 
+            leftPadding:5,
+            rightPadding:5,
+            topPadding:5,
+            bottomPadding:5,
         });
 	}
 
@@ -121,7 +117,7 @@ class DeploymentState extends FlxUIState
 		return b;
 	}
 
-    
+
     private function initShowEnemyButton():Void {
         showEnemyButton = new FlxButton(0, 0, "Show Enemy", showEnemy);
         //showEnemyButton.loadGraphic("assets/images/custom.png");
@@ -146,7 +142,9 @@ class DeploymentState extends FlxUIState
             return;
 
         // We can only call openSubState inside a state class
-        openSubState(new ShowEnemySubState(0xff000000));
+        var subState:ShowEnemySubState = new ShowEnemySubState(0xff000000);
+        subState.updateLevelData(levelData);
+        openSubState(subState);
 	}
 
     // Initialize the board sprite array
@@ -190,7 +188,7 @@ class DeploymentState extends FlxUIState
                     var sprite = new FlxSprite();
                     if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
                     else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
-                   
+
                     sprite.setPosition(minX + sprite.width * 0.15, minY - sprite.height * 0.6);
                     deploymentSpriteGroups[j].add(sprite);
                     deploymentSprites[j][i] = sprite;
@@ -238,6 +236,7 @@ class DeploymentState extends FlxUIState
     // When update frames, check the mouse status and call deploy if necessary
     override public function update(elapsed:Float):Void
     {
+        // Update the mana bar flash status
         if (manaFlashTimer > 0) {
             manaFlashTimer -= 1;
             if (manaFlashTimer % 12 == 0) {
