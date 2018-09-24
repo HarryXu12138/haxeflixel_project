@@ -36,12 +36,14 @@ class LevelFactory
 		{
 			return generateLevel2();
 		}
+		return null;
 		
 	}
 	
 	static public function generateLevel2():LevelData
 	{
 		var level:LevelData = new LevelData(2, "assets/images/NECROBG2.png", "assets/images/gridTile2.png");
+		return level;
 	}
 	
 }

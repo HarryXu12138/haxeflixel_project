@@ -36,7 +36,7 @@ class Entity extends FlxSprite
 		var otherX1:Float = other.x;
 		var otherX2:Float = other.x + other.width;
 		
-		return entityX2 >= otherX1 && entityX1 <= otherX2;
+		return entityX2 >= otherX1 && entityX1 <= otherX2 && other.alive;
 	}
 	
 	public function act(lane:List<Entity>):Void
@@ -44,6 +44,11 @@ class Entity extends FlxSprite
 		if (_hp <= 0)
 		{
 			die();
+		}
+		if (!alive && animation.frameIndex == animation.frames - 1)
+		{
+			
+			kill();
 		}
 	}
 	
@@ -72,9 +77,18 @@ class Entity extends FlxSprite
 	
 	public function die():Void
 	{
-		
-		kill();
 		alive = false;
+		velocity.set(0, 0);
+		if (animation.getByName("death") != null)
+		{
+			animation.play("death");
+		}
+		else
+		{
+			kill();
+		}
+		
+		
 	}
 	
 	

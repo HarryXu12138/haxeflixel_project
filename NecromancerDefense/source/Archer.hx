@@ -67,7 +67,7 @@ class Archer extends Human
 	{
 		for (entity in lane)
 		{
-			if (Std.is(entity, Undead))
+			if (Std.is(entity, Undead) && entity.alive)
 			{
 				return true;
 			}

@@ -20,7 +20,8 @@ class SimulationState extends FlxState
 	var _lanes:Array<List<Entity>>;
 	private var _levelData:LevelData;
 	var entityGroup:FlxGroup;
-	static var entityOffsetY:Int = 424;
+	static var undeadOffsetY:Int = 394;
+	static var humanOffsetY:Int = 424;
 	static var humanOffsetX:Int = 56;
 	static var zombieOffsetX:Int = -744;
 
@@ -108,13 +109,13 @@ class SimulationState extends FlxState
 				var unit:Human;
 				if (_levelData.getHumanUnitAtPosition(x, y) == 1)
 				{
-					unit = new Soldier(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					unit = new Soldier(humanOffsetX + x * _board[0][0].width, humanOffsetY + y * _board[0][0].height);
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getHumanUnitAtPosition(x, y) == 2)
 				{
-					unit = new Archer(humanOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height, entityGroup);
+					unit = new Archer(humanOffsetX + x * _board[0][0].width, humanOffsetY + y * _board[0][0].height, entityGroup);
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
@@ -125,14 +126,14 @@ class SimulationState extends FlxState
 				var unit:Undead;
 				if (_levelData.getUndeadUnitAtPosition(x, y) == 1)
 				{
-					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
 					
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getUndeadUnitAtPosition(x, y) == 2)
 				{
-					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, entityOffsetY + y * _board[0][0].height);
+					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
 					
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
