@@ -37,7 +37,7 @@ class SimulationState extends FlxState
 	
 	override public function create():Void
 	{
-		add(new Background("assets/images/NECROBG.png"));
+		add(new Background(_levelData.getBackgroundPath()));
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
 		entityGroup = new FlxGroup();
@@ -48,7 +48,8 @@ class SimulationState extends FlxState
 			_lanes.push(new List<Entity>());
 			for (x in 0...BOARD_WIDTH)
 			{
-				_board[y].push(new Tile());
+				_board[y].push(new Tile(_levelData.getTilePath()));
+				//_board[y][x].loadGraphic(_levelData.getTilePath());
 				_board[y][x].setPosition(TOP_LEFT_X + x * _board[y][x].width, TOP_LEFT_Y + y * _board[y][x].height);
 				add(_board[y][x]);
 			}

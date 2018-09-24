@@ -9,9 +9,9 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 class Tile extends FlxSprite 
 {
 	var _occupiedEntity:Entity;
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(tilePath:String) 
 	{
-		super(X, Y, SimpleGraphic);
+		super();
 		loadGraphic("assets/images/gridTile.png");
 	}
 	
