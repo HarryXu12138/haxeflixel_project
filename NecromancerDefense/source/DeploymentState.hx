@@ -67,15 +67,11 @@ class DeploymentState extends FlxUIState
 
     override public function create():Void
     {
-        initBackground();
-        initShowEnemyButton();
-		_deployMenu = new DeploymentMenu(levelData);
-        add(_deployMenu);
-        initDeploymentArea();
-		add(_deployMenu);
-        
         super.create();
-        
+        initBackground();
+        initDeploymentArea();
+        initShowEnemyButton();
+        _deployMenu = new DeploymentMenu(levelData);
         add(_deployMenu);
         initToolTips();
     }
