@@ -61,17 +61,17 @@ class ShowEnemySubState extends FlxSubState {
 
     private function initButtons():Void {
         returnToDeploymentButton = new FlxButton(0, 0, "Return", returnToDeployment);
-        returnToDeploymentButton.scale.set(1.5,2);
+        returnToDeploymentButton.scale.set(1.2,4.2);
         returnToDeploymentButton.updateHitbox();
 
         returnToDeploymentButton.label.fieldWidth = returnToDeploymentButton.width;
         returnToDeploymentButton.label.alignment = "center";
 
-        returnToDeploymentButton.label.size = 15;
-        returnToDeploymentButton.label.offset.y -= 7;
+        returnToDeploymentButton.label.size = 14;
+        returnToDeploymentButton.label.offset.y -= 28;
 
-        returnToDeploymentButton.x = FlxG.width * 0.83;
-        returnToDeploymentButton.y = FlxG.height * 0.3;
+        returnToDeploymentButton.x = FlxG.width * 0.9;
+        returnToDeploymentButton.y = FlxG.height * 0.38;
         add(returnToDeploymentButton);
     }
 

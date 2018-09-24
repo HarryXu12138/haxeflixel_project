@@ -146,16 +146,16 @@ class DeploymentMenu extends FlxGroup
 		_startRoundButton = new FlxButton(0, 0, "Start Round", startRound);
 		//_startRoundButton.loadGraphic("assets/images/custom.png");
 
-		_startRoundButton.scale.set(2.25,3);
+		_startRoundButton.scale.set(2.5,3.5);
 		_startRoundButton.updateHitbox();
 
 		_startRoundButton.label.fieldWidth = _startRoundButton.width;
         _startRoundButton.label.alignment = "center";
 
-		_startRoundButton.label.size = 15;
+		_startRoundButton.label.size = 17;
 		_startRoundButton.label.offset.y -= 18;
 
-		_startRoundButton.x = FlxG.width * 0.83;
+		_startRoundButton.x = FlxG.width * 0.79;
 		_startRoundButton.y = FlxG.height * 0.87;
 
 		add(_startRoundButton);
