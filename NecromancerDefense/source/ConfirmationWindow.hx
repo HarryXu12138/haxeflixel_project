@@ -51,10 +51,13 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 
     public function show(currentTime:Float, manaCurrent:Float, levelData:LevelData):Void
 	{
-        if(manaCurrent == 0)
-            yesAction();
-
         _levelData = levelData;
+        
+        if(manaCurrent == 0){
+            yesAction();
+            return;
+        }
+
 		_blackFilter.revive();
 		_panel.revive();
         _displayText.revive();
