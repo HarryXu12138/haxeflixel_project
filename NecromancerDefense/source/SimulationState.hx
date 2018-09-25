@@ -95,14 +95,13 @@ class SimulationState extends FlxState
 		if (checkWin())
 		{
 			if(_levelData.getLevel() == 2){
-				FlxG.switchState(new MainMenu());
+				gameWin();
 			}else{
-				FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel(_levelData.getLevel())));
+				goToCastle();
 			}
 		}
 		super.update(elapsed);
 	}
-
 
 	private function gameOver():Void
 	{

@@ -19,7 +19,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 	var _mainMenuButton : FlxButton;
 	var _okButton : FlxButton;
 	var _quitButton : FlxButton;
-	
+
 	var _panel : FlxSprite;
 	var _blackFilter : FlxSprite;
 
@@ -173,7 +173,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 
 	function okAction():Void
 	{
-		// go to castle
+		FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel2());
 	}
 
 	function quitAction():Void
