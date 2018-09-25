@@ -95,7 +95,7 @@ class SimulationState extends FlxState
 		if (checkWin())
 		{
 			if(_levelData.getLevel() == 2){
-				gameWin();
+				gameWon();
 			}else{
 				goToCastle();
 			}

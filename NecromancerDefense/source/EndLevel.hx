@@ -173,7 +173,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 
 	function okAction():Void
 	{
-		FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel2());
+		FlxG.switchState(new DeploymentState(LevelFactory.generateLevel2()));
 	}
 
 	function quitAction():Void
