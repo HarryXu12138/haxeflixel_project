@@ -24,6 +24,10 @@ class DeploymentMenu extends FlxGroup
 
 	var _pauseButton : FlxButton;
 	var _pauseMenu : PauseMenu;
+
+	var _helpButton : FlxButton;
+	var _tutorialWindow : TutorialWindow;
+
 	var _startRoundButton : FlxButton;
     public var _manaMax:Int = 10;
     public var _manaCurrent:Int = 10;
@@ -35,8 +39,13 @@ class DeploymentMenu extends FlxGroup
 		super();
         initDeployMenu();
 		_levelData = newLevelData;
+
+		_tutorialWindow = new TutorialWindow();
+		add(_tutorialWindow);
+
 		_confirmationWindow = new ConfirmationWindow();
 		add(_confirmationWindow);
+
 		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
 	}
@@ -47,8 +56,28 @@ class DeploymentMenu extends FlxGroup
 		initMPText();
 		initZombieButton();
 		initSkeletonButton();
+		initHelpButton();
 		initPauseButton();
 		initStartButton();
+	}
+
+	function initHelpButton():Void
+	{
+		_helpButton = new FlxButton(0, 0, "?", help);
+		//_helpButton.loadGraphic("assets/images/custom.png");
+
+		_helpButton.scale.set(0.6,2);
+		_helpButton.updateHitbox();
+
+		_helpButton.label.fieldWidth = _helpButton.width;
+        _helpButton.label.alignment = "center";
+
+		_helpButton.label.size = 18;
+
+		_helpButton.x = FlxG.width * 0.9;
+		_helpButton.y = FlxG.height * 0.05;
+
+		add(_helpButton);
 	}
 
 	function initPauseButton():Void
@@ -209,6 +238,15 @@ class DeploymentMenu extends FlxGroup
         var yOffset:Int = -Std.int(sprite.height * 0.9);
 
         FlxG.mouse.load(sprite.pixels, 1, xOffset, yOffset);
+	}
+
+	function help():Void
+	{
+		if(FlxG.timeScale == 0)
+			return;
+
+		_tutorialWindow.show(FlxG.timeScale);
+		FlxG.timeScale = 0;
 	}
 
 	function pause():Void
