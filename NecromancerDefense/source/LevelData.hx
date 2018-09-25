@@ -1,5 +1,7 @@
 package;
 
+import GlobalValues;
+
 /**
  * ...
  * @author ...
@@ -9,13 +11,30 @@ class LevelData
 	private var humanUnits:Array<Array<Int>>;
 	private var undeadUnits:Array<Array<Int>>;
 	private var _level:Int;
+	
+	private var _backgroundPath:String;
+	private var _tilePath:String;
 
-	public function new(level:Int)
+	public function new(level:Int, backgroundPath:String, tilePath:String)
 	{
-		humanUnits = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
+		humanUnits = new Array<Array<Int>>();
+		for (j in 0...GlobalValues.BOARD_HEIGHT) {
+			humanUnits.push(new Array<Int>());
+			for (i in 0...GlobalValues.BOARD_WIDTH) {
+				humanUnits[j].push(0);
+			}
+		}
 
-		undeadUnits = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+		undeadUnits = new Array<Array<Int>>();
+		for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
+			undeadUnits.push(new Array<Int>());
+			for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
+				undeadUnits[j].push(0);
+			}
+		}
 		_level = level;
+		_backgroundPath = backgroundPath;
+		_tilePath = tilePath;
 	}
 
 	public function setHumanUnitAtPosition(x:Int, y:Int, unitNum:Int):Void
@@ -76,6 +95,15 @@ class LevelData
 	public function getLevel():Int
 	{
 		return _level;
+	}
+	
+	public function getBackgroundPath():String
+	{
+		return _backgroundPath;
+	}
+	public function getTilePath():String
+	{
+		return _tilePath;
 	}
 
 }

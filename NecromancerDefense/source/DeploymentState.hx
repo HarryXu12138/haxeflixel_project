@@ -10,7 +10,6 @@ import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
-import flixel.group.FlxGroup;
 import GlobalValues;
 
 // Tooltip buttons
@@ -115,11 +114,11 @@ class DeploymentState extends FlxUIState
 		tooltips.add(b, { title:title, body:body, anchor:anchor, style:style } );
 		return b;
 	}
-    
+
     function initBackground():Void{
         var background = new FlxSprite(0,20);
         background.alpha = 0.7;
-		background.loadGraphic("assets/images/NECROBG.png");
+		background.loadGraphic(levelData.getBackgroundPath());
 		add(background);
     }
 
@@ -165,7 +164,7 @@ class DeploymentState extends FlxUIState
             boardSprite.push(new Array<Tile>());
             deploymentSprites.push(new Array<FlxSprite>());
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
-                boardSprite[j].push(new Tile());
+                boardSprite[j].push(new Tile(levelData.getTilePath()));
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
                 deploymentSprites[j].push(new FlxSprite());
@@ -177,7 +176,8 @@ class DeploymentState extends FlxUIState
     // After mouse released in (X, Y), this function will be call
     // Record the deplyment to the array
     private function deploy(x:Float, y:Float) {
-        if (_deployMenu._manaCurrent == 0) {
+        if (_deployMenu.mouseSelectedTarget == -1) {
+            _deployMenu.mouseSelectedTarget = 0;
             manaFlashTimer = 120;
             return;
         }
@@ -194,7 +194,7 @@ class DeploymentState extends FlxUIState
                     if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
                     else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
 
-                    sprite.setPosition(minX + sprite.width * 0.15, minY - sprite.height * 0.6);
+                    sprite.setPosition(minX + sprite.width * 0.12, minY - sprite.height * 0.6);
                     deploymentSpriteGroups[j].add(sprite);
                     deploymentSprites[j][i] = sprite;
                     levelData.setUndeadUnitAtPosition(i, j, _deployMenu.mouseSelectedTarget);

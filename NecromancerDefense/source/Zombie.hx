@@ -10,8 +10,8 @@ class Zombie extends Undead
 {
 	
 	static var SPEED:Int = 150;
-	static var STARTING_HEALTH:Int = 3;
-	static var ATTACK_DELAY:Int = 24;
+	static var STARTING_HEALTH:Int = 15;
+	static var ATTACK_DELAY:Int = 25;
 	
 	var _target:Entity;
 	
@@ -20,7 +20,14 @@ class Zombie extends Undead
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(48, 96, FlxColor.GREEN);
+		
+		loadGraphic("assets/images/ZOMBIE_ALL.png", true, 215, 255);
+		scale.set(0.5, 0.5);
+		updateHitbox();
+		animation.add("walk", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 12, true);
+		animation.add("attack", [11, 12, 13, 14, 15], 12, true);
+		animation.add("death", [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
+		animation.play("walk");
 		movementSpeed = SPEED;
 		velocity.set(movementSpeed, 0);
 		attackDelay = ATTACK_DELAY;
@@ -41,6 +48,7 @@ class Zombie extends Undead
 				fight(targets, 1);
 				if (_target.alive == false)
 				{
+					animation.play("walk");
 					_attack_frame = 0;
 					_fighting = false;
 				}
@@ -62,6 +70,7 @@ class Zombie extends Undead
 				if (isColliding)
 				{
 					_fighting = true;
+					animation.play("attack");
 					_attack_frame = 0;
 					_target = collidingEntity;
 					velocity.set(0, 0);
