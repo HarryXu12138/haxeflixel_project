@@ -191,13 +191,20 @@ class DeploymentState extends FlxUIState
                     if(levelData.getUndeadUnitAtPosition(i, j) == _deployMenu.mouseSelectedTarget) return;
                     if(levelData.getUndeadUnitAtPosition(i, j) != 0 && levelData.getUndeadUnitAtPosition(i, j) != _deployMenu.mouseSelectedTarget) deploymentSpriteGroups[j].remove(deploymentSprites[j][i]);
                     var sprite = new FlxSprite();
-                    if (_deployMenu.mouseSelectedTarget == 1) sprite.loadGraphic("assets/images/Zombie.png");
-                    else if (_deployMenu.mouseSelectedTarget == 2) sprite.loadGraphic("assets/images/Skeleton.png");
+                    if (_deployMenu.mouseSelectedTarget == 1) {
+                        sprite.loadGraphic("assets/images/ZOMBIE_ALL.png", true, 215, 255);
+                        sprite.animation.add("generate", [29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16], 12, false);
+                    }
+                    else if (_deployMenu.mouseSelectedTarget == 2) {
+                        sprite.loadGraphic("assets/images/SKELETON_ALL.png", true, 280, 262);
+                        sprite.animation.add("generate", [29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17], 12, false);
+                    }
 
-                    sprite.setPosition(minX + sprite.width * 0.12, minY - sprite.height * 0.6);
+                    sprite.setPosition(minX - sprite.width * 0.05, minY - sprite.height * 0.8);
                     deploymentSpriteGroups[j].add(sprite);
                     deploymentSprites[j][i] = sprite;
                     levelData.setUndeadUnitAtPosition(i, j, _deployMenu.mouseSelectedTarget);
+                    deploymentSprites[j][i].animation.play("generate");
                     break;
                 }
             }
