@@ -19,11 +19,12 @@ class Archer extends Human
 	public function new(?X:Float=0, ?Y:Float=0, entityGroup:FlxGroup) 
 	{
 		super(X, Y);
-		loadGraphic("assets/images/ARCHER_ATTACK.png", true, 144, 199);
+		loadGraphic("assets/images/ARCHER_ALL.png", true, 215, 255);
 		scale.set(0.5, 0.5);
 		updateHitbox();
-		animation.add("attack", [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
-		animation.add("stand", [0], 12, true);
+		animation.add("attack", [12, 13, 14, 7, 8, 9, 10, 11], 12, true);
+		animation.add("stand", [0, 1, 2, 3, 4, 5, 6], 12, true);
+		animation.add("death", [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
 		_hp = STARTING_HEALTH;
 		attackDelay = ATTACK_DELAY;
 		_entityGroup = entityGroup;
@@ -32,7 +33,7 @@ class Archer extends Human
 	override public function act(lane:List<Entity>):Void
 	{
 		super.act(lane);
-		if (laneContainsUndead(lane))
+		if (laneContainsUndead(lane) && alive)
 		{
 			if (animation.name != "attack")
 			{
@@ -45,7 +46,7 @@ class Archer extends Human
 				_attack_frame = 0;
 			}
 		}
-		else
+		else if (alive)
 		{
 			if (animation.name != "stand")
 			{

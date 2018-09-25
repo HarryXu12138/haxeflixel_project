@@ -62,8 +62,6 @@ class Entity extends FlxSprite
 			{
 				target.hit(damage);
 			}
-			
-			
 				
 		}
 		

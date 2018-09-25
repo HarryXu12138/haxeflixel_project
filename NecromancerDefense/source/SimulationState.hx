@@ -109,13 +109,13 @@ class SimulationState extends FlxState
 				var unit:Human;
 				if (_levelData.getHumanUnitAtPosition(x, y) == 1)
 				{
-					unit = new Soldier(humanOffsetX + x * _board[0][0].width, humanOffsetY + y * _board[0][0].height);
+					unit = new Soldier(humanOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getHumanUnitAtPosition(x, y) == 2)
 				{
-					unit = new Archer(humanOffsetX + x * _board[0][0].width, humanOffsetY + y * _board[0][0].height, entityGroup);
+					unit = new Archer(humanOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height, entityGroup);
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
