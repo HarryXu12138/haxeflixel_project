@@ -22,7 +22,7 @@ class ShowEnemySubState extends FlxSubState {
 
     // Board variables
     private var boardSprite:Array<Array<Tile>>;
-    private var entitySprite:Array<Array<FlxSprite>>;
+    private var entitySprite:Array<FlxSprite>;
     private var boardUpperLeftX:Float = FlxG.width * 0;
     private var boardUpperLeftY:Float = FlxG.height * 0.3;
     // End variables
@@ -49,6 +49,7 @@ class ShowEnemySubState extends FlxSubState {
 
     private function initBoardArea():Void {
         boardSprite = new Array<Array<Tile>>();
+        entitySprite = new Array<FlxSprite>();
         var group:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
         add(group);
         for (j in 0...GlobalValues.BOARD_HEIGHT) {
@@ -62,16 +63,16 @@ class ShowEnemySubState extends FlxSubState {
                 group.add(boardSprite[j][i]);
                 if (levelData.getHumanUnitAtPosition(i, j) == 1) {
                     unit = new Soldier(0, 0);
-                    unit_x += unit.width;
-                    unit_y += 170;
+                    unit_y += 120;
                     unit.setPosition(unit_x, unit_y);
                     add(unit);
+                    entitySprite.push(unit);
                 } else if (levelData.getHumanUnitAtPosition(i, j) == 2) {
                     unit = new Archer(0, 0, null);
-                    unit_x += unit.width;
-                    unit_y += 170;
+                    unit_y += 120;
                     unit.setPosition(unit_x, unit_y);
                     add(unit);
+                    entitySprite.push(unit);
                 }
             }
         }
@@ -99,5 +100,8 @@ class ShowEnemySubState extends FlxSubState {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
+        for (i in entitySprite) {
+            i.animation.play("stand");
+        }
     }
 }
