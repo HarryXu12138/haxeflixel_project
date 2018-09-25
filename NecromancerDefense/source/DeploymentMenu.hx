@@ -139,7 +139,7 @@ class DeploymentMenu extends FlxGroup
 
 		add(skeletonButton);
 	}
-	
+
 
 	function initStartButton():Void
 	{
@@ -174,10 +174,12 @@ class DeploymentMenu extends FlxGroup
 		if(FlxG.timeScale == 0)
 			return;
 
-        mouseSelectedTarget = 1;
-
-		if(_manaCurrent <= 0)
+		if(_manaCurrent == 0) {
+            mouseSelectedTarget = -1;
 			return;
+        }
+
+        mouseSelectedTarget = 1;
 
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
@@ -193,10 +195,12 @@ class DeploymentMenu extends FlxGroup
 		if(FlxG.timeScale == 0)
 			return;
 
-		mouseSelectedTarget = 2;
-
-		if(_manaCurrent <= 0)
+		if(_manaCurrent == 0) {
+            mouseSelectedTarget = -1;
 			return;
+        }
+
+        mouseSelectedTarget = 2;
 
         // Change the cursor to the zombie's image
         var sprite = new FlxSprite();
