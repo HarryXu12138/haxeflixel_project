@@ -65,6 +65,7 @@ class DeploymentState extends FlxUIState
     override public function create():Void
     {
         super.create();
+        FlxG.timeScale = 1.0;
         initBackground();
         initDeploymentArea();
         initShowEnemyButton();
