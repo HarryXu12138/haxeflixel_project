@@ -119,7 +119,7 @@ class DeploymentState extends FlxUIState
     function initBackground():Void{
         var background = new FlxSprite(0,20);
         background.alpha = 0.7;
-		background.loadGraphic("assets/images/NECROBG.png");
+		background.loadGraphic(levelData.getBackgroundPath());
 		add(background);
     }
 

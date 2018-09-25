@@ -1,7 +1,7 @@
 package;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
-
+import flixel.FlxG;
 /**
  * ...
  * @author Jared Okun
@@ -81,7 +81,7 @@ class SimulationState extends FlxState
 		}
 		if (checkWin())
 		{
-			trace("on");
+			FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel(_levelData.getLevel())));
 		}
 		super.update(elapsed);
 	}

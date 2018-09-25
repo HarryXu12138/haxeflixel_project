@@ -12,7 +12,7 @@ class Tile extends FlxSprite
 	public function new(tilePath:String) 
 	{
 		super();
-		loadGraphic("assets/images/gridTile.png");
+		loadGraphic(tilePath);
 	}
 	
 	public function setOccupiedEntity(entity:Entity):Void
