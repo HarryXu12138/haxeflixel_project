@@ -71,7 +71,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 
 		_bodyText = new FlxText(FlxG.width * 0.3, FlxG.height * 0.3, 600); // x, y, width
 		_bodyText.setFormat(14, FlxColor.WHITE, LEFT);
-		_bodyText.text = "Strategically place your monsters to attack enemy troops. Select a monster and place it the on the board. Then when you're ready to attack, click \"start round\".";
+		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. Then when you're ready to attack, click \"start round\".";
 		add(_bodyText);
 	}
 

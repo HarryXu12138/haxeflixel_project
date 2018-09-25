@@ -63,11 +63,15 @@ class SimulationState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		var undeadTroopsLeft:Bool = false;
 		for (i in 0..._lanes.length)
 		{
 			var lane:List<Entity> = _lanes[i];
 			for (entity in lane)
 			{
+				if(entity.alive && Std.is(entity, Undead))
+					undeadTroopsLeft = true;
+
 				entity.act(lane);
 				if (!entity.alive)
 				{
@@ -78,11 +82,31 @@ class SimulationState extends FlxState
 				}
 			}
 		}
+
+		if(undeadTroopsLeft == false)
+			gameOver();
+
 		if (checkWin())
 		{
 			trace("on");
 		}
 		super.update(elapsed);
+	}
+
+
+	private function gameOver():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 0);
+	}
+
+	private function goToCastle():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 1);
+	}
+
+	private function gameWon():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 2);
 	}
 	
 	private function checkWin():Bool
@@ -147,5 +171,4 @@ class SimulationState extends FlxState
 			}
 		}
 	}
-
 }

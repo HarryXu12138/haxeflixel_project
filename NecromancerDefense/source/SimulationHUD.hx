@@ -18,6 +18,7 @@ class SimulationHUD extends FlxGroup
 	var mpText : FlxText;
 
 	var _pauseMenu : PauseMenu;
+	var _endLevelMenu : EndLevel;
 
 	var _fastestSpeed : Float = 3.0;
 	var _slowestSpeed : Float = 1.0;
@@ -29,6 +30,9 @@ class SimulationHUD extends FlxGroup
 
 		_pauseMenu = new PauseMenu();
 		add(_pauseMenu);
+
+		_endLevelMenu = new EndLevel();
+		add(_endLevelMenu);
 	}
 
 	function initSimHUD(): Void
@@ -131,6 +135,11 @@ class SimulationHUD extends FlxGroup
 		FlxG.timeScale /= 2;
 		if(FlxG.timeScale <= _slowestSpeed)
 			FlxG.timeScale = _slowestSpeed;
+	}
+
+	public function showEndLevelScreen(levelData:LevelData, mode:Int):Void
+	{
+		_endLevelMenu.show(levelData, mode, 1);
 	}
 
 }
