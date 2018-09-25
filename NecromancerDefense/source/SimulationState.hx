@@ -27,6 +27,9 @@ class SimulationState extends FlxState
 
 	var _simulationHUD : SimulationHUD;
 	
+	private static var necroGirlX:Int = 50;
+	private static var necroGirlY:Int = 280;
+	
 	public var beatenLanes:Array<Bool>;
 	
 	
@@ -59,6 +62,8 @@ class SimulationState extends FlxState
 		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
+		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
+		entityGroup.add(necroGirl);
 		super.create();
 	}
 
@@ -81,7 +86,11 @@ class SimulationState extends FlxState
 		}
 		if (checkWin())
 		{
-			FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel(_levelData.getLevel())));
+			if(_levelData.getLevel() == 2){
+				FlxG.switchState(new MainMenu());
+			}else{
+				FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel(_levelData.getLevel())));
+			}
 		}
 		super.update(elapsed);
 	}
