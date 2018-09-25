@@ -14,7 +14,6 @@ class ShowEnemySubState extends FlxSubState {
     1 -- human type 1
     2 -- human type 2
     */
-    public static var enemyBoard:Array<Array<Int>>;
 
     // Buttons variables
     private var returnToDeploymentButton:FlxButton;
@@ -23,8 +22,8 @@ class ShowEnemySubState extends FlxSubState {
     // Board variables
     private var boardSprite:Array<Array<Tile>>;
     private var entitySprite:Array<Array<FlxSprite>>;
-    private var boardUpperLeftX:Float = FlxG.width * 0.5;
-    private var boardUpperLeftY:Float = FlxG.height * 0.37;
+    private var boardUpperLeftX:Float = FlxG.width * 0;
+    private var boardUpperLeftY:Float = FlxG.height * 0.3;
     // End variables
 
     private var levelData:LevelData;
@@ -49,9 +48,9 @@ class ShowEnemySubState extends FlxSubState {
 
     private function initBoardArea():Void {
         boardSprite = new Array<Array<Tile>>();
-        for (j in 0...GlobalValues.HUMAN_HEIGHT) {
+        for (j in 0...GlobalValues.BOARD_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
-            for (i in 0...GlobalValues.HUMAN_WIDTH) {
+            for (i in 0...GlobalValues.BOARD_WIDTH) {
                 boardSprite[j].push(new Tile());
                 boardSprite[j][i].setPosition(boardUpperLeftX + i * boardSprite[j][i].width, boardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
@@ -71,7 +70,7 @@ class ShowEnemySubState extends FlxSubState {
         returnToDeploymentButton.label.offset.y -= 28;
 
         returnToDeploymentButton.x = FlxG.width * 0.9;
-        returnToDeploymentButton.y = FlxG.height * 0.38;
+        returnToDeploymentButton.y = FlxG.height * 0.1;
         add(returnToDeploymentButton);
     }
 

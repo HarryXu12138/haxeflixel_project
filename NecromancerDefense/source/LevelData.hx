@@ -1,5 +1,7 @@
 package;
 
+import GlobalValues;
+
 /**
  * ...
  * @author ...
@@ -12,10 +14,21 @@ class LevelData
 
 	public function new(level:Int)
 	{
-		humanUnits = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]];
+		humanUnits = new Array<Array<Int>>();
+		for (j in 0...GlobalValues.BOARD_HEIGHT) {
+			humanUnits.push(new Array<Int>());
+			for (i in 0...GlobalValues.BOARD_WIDTH) {
+				humanUnits[j].push(0);
+			}
+		}
 
-		undeadUnits = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
-		_level = level;
+		undeadUnits = new Array<Array<Int>>();
+		for (j in 0...GlobalValues.DEPLOYMENT_HEIGHT) {
+			undeadUnits.push(new Array<Int>());
+			for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
+				undeadUnits[j].push(0);
+			}
+		}
 	}
 
 	public function setHumanUnitAtPosition(x:Int, y:Int, unitNum:Int):Void
