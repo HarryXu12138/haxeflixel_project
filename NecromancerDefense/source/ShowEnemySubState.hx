@@ -6,6 +6,7 @@ import flixel.ui.FlxButton;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxSpriteUtil;
+import flixel.group.FlxGroup;
 import GlobalValues;
 
 class ShowEnemySubState extends FlxSubState {
@@ -48,12 +49,30 @@ class ShowEnemySubState extends FlxSubState {
 
     private function initBoardArea():Void {
         boardSprite = new Array<Array<Tile>>();
+        var group:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
+        add(group);
         for (j in 0...GlobalValues.BOARD_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
             for (i in 0...GlobalValues.BOARD_WIDTH) {
                 boardSprite[j].push(new Tile());
                 boardSprite[j][i].setPosition(boardUpperLeftX + i * boardSprite[j][i].width, boardUpperLeftY + j * boardSprite[j][i].height);
-                add(boardSprite[j][i]);
+                var unit:Human;
+                var unit_x:Float = i * boardSprite[0][0].width;
+                var unit_y:Float = j * boardSprite[0][0].height;
+                group.add(boardSprite[j][i]);
+                if (levelData.getHumanUnitAtPosition(i, j) == 1) {
+                    unit = new Soldier(0, 0);
+                    unit_x += unit.width;
+                    unit_y += 170;
+                    unit.setPosition(unit_x, unit_y);
+                    add(unit);
+                } else if (levelData.getHumanUnitAtPosition(i, j) == 2) {
+                    unit = new Archer(0, 0, null);
+                    unit_x += unit.width;
+                    unit_y += 170;
+                    unit.setPosition(unit_x, unit_y);
+                    add(unit);
+                }
             }
         }
     }

@@ -174,8 +174,10 @@ class DeploymentMenu extends FlxGroup
 		if(FlxG.timeScale == 0)
 			return;
 
-		if(_manaCurrent <= 0)
+		if(_manaCurrent == 0) {
+            mouseSelectedTarget = -1;
 			return;
+        }
 
         mouseSelectedTarget = 1;
 
@@ -193,8 +195,10 @@ class DeploymentMenu extends FlxGroup
 		if(FlxG.timeScale == 0)
 			return;
 
-		if(_manaCurrent <= 0)
+		if(_manaCurrent == 0) {
+            mouseSelectedTarget = -1;
 			return;
+        }
 
         mouseSelectedTarget = 2;
 
