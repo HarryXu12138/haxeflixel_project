@@ -15,7 +15,9 @@ class Arrow extends Entity
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		makeGraphic(50, 10, FlxColor.BROWN);
+		loadGraphic("assets/images/ARROW.png", false);
+		scale.set(0.5, 0.5);
+		updateHitbox();
 		velocity.set(-SPEED, 0);
 	}
 	
