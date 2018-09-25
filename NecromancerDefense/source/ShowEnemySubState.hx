@@ -54,7 +54,7 @@ class ShowEnemySubState extends FlxSubState {
         for (j in 0...GlobalValues.BOARD_HEIGHT) {
             boardSprite[j] = new Array<Tile>();
             for (i in 0...GlobalValues.BOARD_WIDTH) {
-                boardSprite[j].push(new Tile());
+                boardSprite[j].push(new Tile(levelData.getTilePath()));
                 boardSprite[j][i].setPosition(boardUpperLeftX + i * boardSprite[j][i].width, boardUpperLeftY + j * boardSprite[j][i].height);
                 var unit:Human;
                 var unit_x:Float = i * boardSprite[0][0].width;

@@ -8,7 +8,7 @@ class Archer extends Human
 {
 
 	static var STARTING_HEALTH:Int = 5;
-	static var ATTACK_DELAY:Int = 150;
+	static var ATTACK_DELAY:Int = 42;
 	static var X_OFFSET:Int = -10;
 	static var Y_OFFSET:Int = 30;
 	
@@ -19,7 +19,12 @@ class Archer extends Human
 	public function new(?X:Float=0, ?Y:Float=0, entityGroup:FlxGroup) 
 	{
 		super(X, Y);
-		makeGraphic(48, 96, FlxColor.RED);
+		loadGraphic("assets/images/ARCHER_ALL.png", true, 215, 255);
+		scale.set(0.5, 0.5);
+		updateHitbox();
+		animation.add("attack", [12, 13, 14, 7, 8, 9, 10, 11], 12, true);
+		animation.add("stand", [0, 1, 2, 3, 4, 5, 6], 12, true);
+		animation.add("death", [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
 		_hp = STARTING_HEALTH;
 		attackDelay = ATTACK_DELAY;
 		_entityGroup = entityGroup;
@@ -28,8 +33,12 @@ class Archer extends Human
 	override public function act(lane:List<Entity>):Void
 	{
 		super.act(lane);
-		if (laneContainsUndead(lane))
+		if (laneContainsUndead(lane) && alive)
 		{
+			if (animation.name != "attack")
+			{
+				animation.play("attack");
+			}
 			_attack_frame++;
 			if (_attack_frame == attackDelay)
 			{
@@ -37,8 +46,12 @@ class Archer extends Human
 				_attack_frame = 0;
 			}
 		}
-		else
+		else if (alive)
 		{
+			if (animation.name != "stand")
+			{
+				animation.play("stand");
+			}
 			_attack_frame = 0;
 		}
 		
@@ -55,7 +68,7 @@ class Archer extends Human
 	{
 		for (entity in lane)
 		{
-			if (Std.is(entity, Undead))
+			if (Std.is(entity, Undead) && entity.alive)
 			{
 				return true;
 			}

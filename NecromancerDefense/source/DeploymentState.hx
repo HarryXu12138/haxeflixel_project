@@ -118,7 +118,7 @@ class DeploymentState extends FlxUIState
     function initBackground():Void{
         var background = new FlxSprite(0,20);
         background.alpha = 0.7;
-		background.loadGraphic("assets/images/NECROBG.png");
+		background.loadGraphic(levelData.getBackgroundPath());
 		add(background);
     }
 
@@ -164,7 +164,7 @@ class DeploymentState extends FlxUIState
             boardSprite.push(new Array<Tile>());
             deploymentSprites.push(new Array<FlxSprite>());
             for (i in 0...GlobalValues.DEPLOYMENT_WIDTH) {
-                boardSprite[j].push(new Tile());
+                boardSprite[j].push(new Tile(levelData.getTilePath()));
                 boardSprite[j][i].setPosition(deploymentBoardUpperLeftX + i * boardSprite[j][i].width, deploymentBoardUpperLeftY + j * boardSprite[j][i].height);
                 add(boardSprite[j][i]);
                 deploymentSprites[j].push(new FlxSprite());
