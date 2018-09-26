@@ -75,16 +75,17 @@ class SimulationState extends FlxState
 			var lane:List<Entity> = _lanes[i];
 			for (entity in lane)
 			{
-				if(entity.alive && Std.is(entity, Undead))
-					undeadTroopsLeft = true;
 
 				entity.act(lane);
 				if (!entity.alive)
 				{
 					lane.remove(entity);
 				}
-				else if (Std.is(entity, Undead) && entity.x >= 1280){
-					beatenLanes[i] = true;
+				else if (Std.is(entity, Undead)){
+					if(entity.x >= 1280)
+						beatenLanes[i] = true;
+					else
+						undeadTroopsLeft = true;
 				}
 			}
 		}
