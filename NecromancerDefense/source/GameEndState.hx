@@ -39,8 +39,16 @@ class GameEndState extends FlxState {
 
     public function initBackground():Void {
         var background:FlxSprite = new FlxSprite(0, 0);
-        if (win) background.loadGraphic("assets/images/Victory.png");
-        else  background.loadGraphic("assets/images/GameOver.png");
+        if (win)
+		{
+			background.loadGraphic("assets/images/Victory.png");
+			
+		}
+        else  
+		{
+			background.loadGraphic("assets/images/GameOver.png");
+			FlxG.sound.playMusic(AssetPaths.HF_Lose__ogg, 1, false);
+		}
         add(background);
     }
 }

@@ -9,31 +9,26 @@ import flixel.FlxG;
 class SimulationState extends FlxState
 {
 
-	static var BOARD_WIDTH:Int = 8;
-	static var BOARD_HEIGHT:Int = 5;
+	private var TOP_LEFT_X:Float = 0;
+	private var TOP_LEFT_Y:Float = 480;
+	
+	private var UNDEAD_OFFSET_Y:Int = 394;
+	private var UNDEAD_OFFSET_X:Int = -744;
+	private var HUMAN_OFFSET_Y:Int = 424;
+	private var HUMAN_OFFSET_X:Int = 56;
+	
+	private var NECROGIRL_X:Int = 30;
+	private var NECROGIRLY:Int = 180;
+	private var MAIN_KNIGHT_X:Int = 1080;
+	private var MAIN_KNIGHT_Y:Int = 200;
 
-	static var TOP_LEFT_X:Float = 0;
-	static var TOP_LEFT_Y:Float = 480;
-
-	var _board:Array<Array<Tile>>;
-
-	var _lanes:Array<List<Entity>>;
+	private var _board:Array<Array<Tile>>;
+	private var _lanes:Array<List<Entity>>;
 	private var _levelData:LevelData;
-	var entityGroup:FlxGroup;
-	static var undeadOffsetY:Int = 394;
-	static var humanOffsetY:Int = 424;
-	static var humanOffsetX:Int = 56;
-	static var zombieOffsetX:Int = -744;
-
-	var _simulationHUD : SimulationHUD;
-
-	private var necroGirlX:Int = 30;
-	private var necroGirlY:Int = 180;
-	private var mainKnightX:Int = 1080;
-	private var mainKnightY:Int = 200;
-	public var beatenLanes:Array<Bool>;
-
-    private var showGoToCastleWindow:Bool = false;
+	private var _entityGroup:FlxGroup;
+	private var _simulationHUD : SimulationHUD;
+	private var _beatenLanes:Array<Bool>;
+    private var _showGoToCastleWindow:Bool = false;
 
 
 	public function new(newLevelData:LevelData)
@@ -45,21 +40,22 @@ class SimulationState extends FlxState
 	override public function create():Void
 	{
 		add(new Background(_levelData.getBackgroundPath()));
+		FlxG.sound.playMusic(AssetPaths.HF_Simulation__ogg);
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
-		entityGroup = new FlxGroup();
+		_entityGroup = new FlxGroup();
 
-		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
-		var mainKnight:MainKnight = new MainKnight(mainKnightX, mainKnightY);
-		entityGroup.add(necroGirl);
-		entityGroup.add(mainKnight);
+		var necroGirl:NecroGirl = new NecroGirl(NECROGIRL_X, NECROGIRLY);
+		var mainKnight:MainKnight = new MainKnight(MAIN_KNIGHT_X, MAIN_KNIGHT_Y);
+		_entityGroup.add(necroGirl);
+		_entityGroup.add(mainKnight);
 
-		beatenLanes = [false, false, false, false, false];
-		for (y in 0...BOARD_HEIGHT)
+		_beatenLanes = [false, false, false, false, false];
+		for (y in 0...GlobalValues.BOARD_HEIGHT)
 		{
 			_board.push(new Array<Tile>());
 			_lanes.push(new List<Entity>());
-			for (x in 0...BOARD_WIDTH)
+			for (x in 0...GlobalValues.BOARD_WIDTH)
 			{
 				_board[y].push(new Tile(_levelData.getTilePath()));
 				_board[y][x].setPosition(TOP_LEFT_X + x * _board[y][x].width, TOP_LEFT_Y + y * _board[y][x].height);
@@ -67,7 +63,7 @@ class SimulationState extends FlxState
 			}
 		}
 		placeUnits();
-		add(entityGroup);
+		add(_entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
 
@@ -78,6 +74,7 @@ class SimulationState extends FlxState
 	{
         super.update(elapsed);
 		var undeadTroopsLeft:Bool = false;
+		//Have all entities run their act methods
 		for (i in 0..._lanes.length)
 		{
 			var lane:List<Entity> = _lanes[i];
@@ -90,8 +87,9 @@ class SimulationState extends FlxState
 					lane.remove(entity);
 				}
 				else if (Std.is(entity, Undead)){
+					//If an undead goes offscreen, then that lane is beaten
 					if(entity.x >= 1280)
-						beatenLanes[i] = true;
+						_beatenLanes[i] = true;
 					else
 						undeadTroopsLeft = true;
 				}
@@ -115,7 +113,7 @@ class SimulationState extends FlxState
 	// Player fails to beat level
 	private function gameOver():Void
 	{
-        if (showGoToCastleWindow) return;
+        if (_showGoToCastleWindow) return;
         var endState:GameEndState = new GameEndState();
         // Have to first update win/lose situation than init the background image
         endState.updateWinLoseStatus(0);
@@ -126,14 +124,14 @@ class SimulationState extends FlxState
 	// Passes level 1 -> go on to level 2
 	private function goToCastle():Void
 	{
-        showGoToCastleWindow = true;
+        _showGoToCastleWindow = true;
 		_simulationHUD.showEndLevelScreen(_levelData, 1);
 	}
 
 	// Passed level 2 -> Player wins the game
 	private function gameWon():Void
 	{
-        if (showGoToCastleWindow) return;
+        if (_showGoToCastleWindow) return;
         var endState:GameEndState = new GameEndState();
         // Have to first update win/lose situation than init the background image
         endState.updateWinLoseStatus(1);
@@ -144,7 +142,7 @@ class SimulationState extends FlxState
 	private function checkWin():Bool
 	{
 		var amount:Int = 0;
-		for (bool in beatenLanes)
+		for (bool in _beatenLanes)
 		{
 			if (bool)
 			{
@@ -164,14 +162,14 @@ class SimulationState extends FlxState
 				var unit:Human;
 				if (_levelData.getHumanUnitAtPosition(x, y) == 1)
 				{
-					unit = new Soldier(humanOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
-					entityGroup.add(unit);
+					unit = new Soldier(HUMAN_OFFSET_X + x * _board[0][0].width, UNDEAD_OFFSET_Y + y * _board[0][0].height);
+					_entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getHumanUnitAtPosition(x, y) == 2)
 				{
-					unit = new Archer(humanOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height, entityGroup);
-					entityGroup.add(unit);
+					unit = new Archer(HUMAN_OFFSET_X + x * _board[0][0].width, UNDEAD_OFFSET_Y + y * _board[0][0].height, _entityGroup);
+					_entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 			}
@@ -181,16 +179,16 @@ class SimulationState extends FlxState
 				var unit:Undead;
 				if (_levelData.getUndeadUnitAtPosition(x, y) == 1)
 				{
-					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
+					unit = new Zombie(UNDEAD_OFFSET_X + x * _board[0][0].width, UNDEAD_OFFSET_Y + y * _board[0][0].height);
 
-					entityGroup.add(unit);
+					_entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getUndeadUnitAtPosition(x, y) == 2)
 				{
-					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
+					unit = new Skeleton(UNDEAD_OFFSET_X + x * _board[0][0].width, UNDEAD_OFFSET_Y + y * _board[0][0].height);
 
-					entityGroup.add(unit);
+					_entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 			}

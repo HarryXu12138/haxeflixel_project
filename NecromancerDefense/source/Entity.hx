@@ -2,17 +2,13 @@ package;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
-/**
- * ...
- * @author Jared Okun
- */
 class Entity extends FlxSprite 
 {
 	
 	var _fighting:Bool;
 	var _hp:Int;
 	var _attack_frame:Int;
-	var attackDelay:Int;
+	var _attackDelay:Int;
 	
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -25,6 +21,7 @@ class Entity extends FlxSprite
 	
 	public function overlapInLane(other:Entity):Bool
 	{
+		//Overlap only occurs if both entities are touching x-wise
 		if (other == this)
 		{
 			return false;
@@ -41,21 +38,23 @@ class Entity extends FlxSprite
 	
 	public function act(lane:List<Entity>):Void
 	{
+		//Entities can only interact with their own lane
 		if (_hp <= 0)
 		{
 			die();
 		}
 		if (!alive && animation.frameIndex == animation.frames - 1)
 		{
-			
+			//Remove entity if it is done with its dying animation
 			kill();
 		}
 	}
 	
 	public function fight(targets:List<Entity>, damage:Int):Void
 	{
+		//checks to see if the windup for the attack is done, then deals damage to all targets
 		_attack_frame++;
-		if (_attack_frame == attackDelay)
+		if (_attack_frame == _attackDelay)
 		{
 			_attack_frame = 0;
 			for (target in targets)
@@ -75,6 +74,7 @@ class Entity extends FlxSprite
 	
 	public function die():Void
 	{
+		//Play death only if agent has an animation
 		alive = false;
 		velocity.set(0, 0);
 		if (animation.getByName("death") != null)
