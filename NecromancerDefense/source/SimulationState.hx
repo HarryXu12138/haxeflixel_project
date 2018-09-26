@@ -103,10 +103,12 @@ class SimulationState extends FlxState
 		{
 			if(_levelData.getLevel() == 2){
 				gameWon();
+                return;
 			} else {
 				goToCastle();
 			}
 		}
+
         if(undeadTroopsLeft == false)
             gameOver();
 	}
