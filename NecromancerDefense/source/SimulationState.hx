@@ -27,8 +27,8 @@ class SimulationState extends FlxState
 
 	var _simulationHUD : SimulationHUD;
 	
-	private var necroGirlX:Int = 50;
-	private var necroGirlY:Int = 280;
+	private var necroGirlX:Int = 30;
+	private var necroGirlY:Int = 180;
 	private var mainKnightX:Int = 1080;
 	private var mainKnightY:Int = 200;
 	public var beatenLanes:Array<Bool>;
@@ -46,6 +46,12 @@ class SimulationState extends FlxState
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
 		entityGroup = new FlxGroup();
+		
+		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
+		var mainKnight:MainKnight = new MainKnight(mainKnightX, mainKnightY);
+		entityGroup.add(necroGirl);
+		entityGroup.add(mainKnight);
+		
 		beatenLanes = [false, false, false, false, false];
 		for (y in 0...BOARD_HEIGHT)
 		{
@@ -62,10 +68,7 @@ class SimulationState extends FlxState
 		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
-		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
-		var mainKnight:MainKnight = new MainKnight(mainKnightX, mainKnightY);
-		entityGroup.add(necroGirl);
-		entityGroup.add(mainKnight);
+		
 		super.create();
 	}
 
