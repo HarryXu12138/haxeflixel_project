@@ -9,7 +9,7 @@ class LevelFactory
 
 	static public function generateLevel1():LevelData
 	{
-		var level:LevelData = new LevelData(1, "assets/images/NECROBG.png", "assets/images/gridTile.png", AssetPaths.HF_Stage1__ogg);
+		var level:LevelData = new LevelData(1, "assets/images/NECROBG.png", "assets/images/gridTile.png");
 		level.setHumanUnitAtPosition(7, 0, 1);
 		level.setHumanUnitAtPosition(6, 0, 1);
 		level.setHumanUnitAtPosition(6, 1, 2);
@@ -38,7 +38,7 @@ class LevelFactory
 	
 	static public function generateLevel2():LevelData
 	{
-		var level:LevelData = new LevelData(2, "assets/images/NECROBG2.png", "assets/images/gridTile2.png", AssetPaths.HF_Stage1__ogg);
+		var level:LevelData = new LevelData(2, "assets/images/NECROBG2.png", "assets/images/gridTile2.png");
 		level.setHumanUnitAtPosition(7, 0, 2);
 		level.setHumanUnitAtPosition(6, 0, 1);
 		level.setHumanUnitAtPosition(5, 0, 1);

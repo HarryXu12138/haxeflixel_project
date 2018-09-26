@@ -15,9 +15,8 @@ class LevelData
 	
 	private var _backgroundPath:String;
 	private var _tilePath:String;
-	private var _music:FlxSoundAsset;
 
-	public function new(level:Int, backgroundPath:String, tilePath:String, music:FlxSoundAsset)
+	public function new(level:Int, backgroundPath:String, tilePath:String)
 	{
 		humanUnits = new Array<Array<Int>>();
 		for (j in 0...GlobalValues.BOARD_HEIGHT) {
@@ -37,7 +36,6 @@ class LevelData
 		_level = level;
 		_backgroundPath = backgroundPath;
 		_tilePath = tilePath;
-		_music = music;
 	}
 
 	public function setHumanUnitAtPosition(x:Int, y:Int, unitNum:Int):Void
@@ -108,9 +106,6 @@ class LevelData
 	{
 		return _tilePath;
 	}
-	public function getMusic():FlxSoundAsset
-	{
-		return _music;
-	}
+	
 	
 }
