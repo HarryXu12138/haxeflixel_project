@@ -1,6 +1,7 @@
 package;
 
 import GlobalValues;
+import flixel.system.FlxAssets.FlxSoundAsset;
 
 /**
  * ...
@@ -41,7 +42,7 @@ class LevelData
 	{
 		if (unitNum >= 3)
 		{
-			trace("Angry Unit Noises");
+			trace("Error: Unit " + unitNum + " does not exist");
 		}
 		else
 		{
@@ -69,7 +70,7 @@ class LevelData
 	{
 		if (unitNum >= 3)
 		{
-			trace("Angry Zombie Noises");
+			trace("Error: Undead " + unitNum + " does not exist");
 		}
 		else
 		{
@@ -105,5 +106,6 @@ class LevelData
 	{
 		return _tilePath;
 	}
-
+	
+	
 }

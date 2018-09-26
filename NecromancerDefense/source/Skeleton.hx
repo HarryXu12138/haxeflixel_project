@@ -26,7 +26,7 @@ class Skeleton extends Zombie
 		animation.play("walk");
 		movementSpeed = SPEED;
 		velocity.set(movementSpeed, 0);
-		attackDelay = ATTACK_DELAY;
+		_attackDelay = ATTACK_DELAY;
 		_hp = STARTING_HEALTH;
 	}
 	

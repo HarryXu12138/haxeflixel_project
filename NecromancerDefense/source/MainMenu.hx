@@ -15,9 +15,12 @@ class MainMenu extends FlxState
 
 	override public function create():Void
 	{
+
 		super.create();
+		FlxG.sound.playMusic(AssetPaths.HF_Menu__ogg);
 		initBackground();
 		initStartButton();
+		
 	}
 
 	function initStartButton():Void{

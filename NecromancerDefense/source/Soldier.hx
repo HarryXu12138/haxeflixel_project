@@ -25,7 +25,7 @@ class Soldier extends Human
 		animation.add("stand", [0, 1, 2, 3], 12, true);
 		animation.add("death", [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 12, false);
 		_hp = STARTING_HEALTH;
-		attackDelay = ATTACK_DELAY;
+		_attackDelay = ATTACK_DELAY;
 		_targets = new List<Entity>();
 	}
 	
@@ -43,7 +43,7 @@ class Soldier extends Human
 				}
 				fight(_targets, 1);
 			}
-			
+			//Store all entities overlapping the soldier so they can be all attacked at once
 			for (entity in lane)
 			{
 				if (overlapInLane(entity) && !targetsContains(entity))
