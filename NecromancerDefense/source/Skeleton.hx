@@ -9,7 +9,7 @@ import flixel.util.FlxColor;
 class Skeleton extends Zombie 
 {
 	
-	static var SPEED:Int = 240;
+	static var SPEED:Int = 300;
 	static var STARTING_HEALTH:Int = 10;
 	static var ATTACK_DELAY:Int = 45;
 	

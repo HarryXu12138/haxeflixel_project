@@ -10,7 +10,7 @@ class Zombie extends Undead
 {
 	
 	static var SPEED:Int = 150;
-	static var STARTING_HEALTH:Int = 16;
+	static var STARTING_HEALTH:Int = 13;
 	static var ATTACK_DELAY:Int = 25;
 	
 	var _target:Entity;
