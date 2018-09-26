@@ -5,6 +5,9 @@ import flixel.ui.FlxButton;
 import flixel.FlxSprite;
 import flixel.FlxG;
 
+/**
+	This class draws our main menu.
+**/
 class MainMenu extends FlxState
 {
     var _startButton:FlxButton;
@@ -19,8 +22,7 @@ class MainMenu extends FlxState
 
 	function initStartButton():Void{
 		_startButton = new FlxButton(0, 0, "Start", clickPlay);
-		//_startButton.loadGraphic("assets/images/custom.png");
-
+		
 		_startButton.scale.set(3,3);
 		_startButton.updateHitbox();
 
@@ -47,6 +49,7 @@ class MainMenu extends FlxState
 		super.update(elapsed);
 	}
 
+	// Load level 1
     function clickPlay():Void
 	{
 		FlxG.switchState(new DeploymentState(LevelFactory.generateLevel1()));

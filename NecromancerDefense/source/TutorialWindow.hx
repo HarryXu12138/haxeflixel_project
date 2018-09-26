@@ -10,6 +10,9 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flash.system.System;
 
+/**
+	This class draws our Tutorial Window
+**/
 class TutorialWindow extends FlxTypedGroup<FlxSprite>
 {
     var _headerText : FlxText;
@@ -29,6 +32,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
         initWindow();
 	}
 
+	// Intialize all of our components
 	function initWindow(): Void
 	{
 		initBlackFilter();
@@ -39,6 +43,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 		hide();
 	}
 
+	// Hide the window
 	public function hide():Void
 	{
 		_blackFilter.kill();
@@ -49,6 +54,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
         _closeButton.kill();
 	}
 
+	// Show the window
     public function show(currentTime:Float):Void
 	{        
 		_blackFilter.revive();
@@ -58,6 +64,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
         _picture.revive();
         _closeButton.revive();
 
+		// Save the timescale before opening this window
         _savedTime = currentTime;
         FlxG.timeScale = 0;
 	}
@@ -71,7 +78,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 
 		_bodyText = new FlxText(FlxG.width * 0.3, FlxG.height * 0.3, 600); // x, y, width
 		_bodyText.setFormat(14, FlxColor.WHITE, LEFT);
-		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. When you're ready to attack, click \"start round\". To win, you must capture at least 3 out of the 5 lanes. To capture a lane, must defeat all the enemies in a lane.";
+		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. When you're ready to attack, click \"start round\". To win, you must capture at least 3 out of the 5 lanes. To capture a lane, you must defeat all the enemies in a lane.";
 		add(_bodyText);
 	}
 
@@ -85,7 +92,6 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 	function initCloseButton():Void
 	{
 		_closeButton = new FlxButton(0, 0, "OK", closeWindow);
-		//_closeButton.loadGraphic("assets/images/custom.png");
 
 		_closeButton.scale.set(1,2.2);
 		_closeButton.updateHitbox();
@@ -111,6 +117,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
         FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.25, FlxG.height * 0.17, FlxG.width * 0.55, FlxG.height * 0.7, 10, 10, FlxColor.fromRGB(61, 57, 66, 256));		
     }
 
+	// Giant overlay that darkens the rest of the scene
 	function initBlackFilter():Void
 	{
 		_blackFilter = new FlxSprite();
@@ -123,6 +130,6 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 	function closeWindow():Void
 	{
 		hide();
-        FlxG.timeScale = _savedTime;
+        FlxG.timeScale = _savedTime;	// Reset timescale to the timescale when window was first opened
 	}
 }

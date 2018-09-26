@@ -9,6 +9,9 @@ import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 
+/**
+	This class draws our HUD during a simulation state.
+**/
 class SimulationHUD extends FlxGroup
 {
 	var _pauseButton : FlxButton;
@@ -37,24 +40,14 @@ class SimulationHUD extends FlxGroup
 
 	function initSimHUD(): Void
 	{
-		initMPText();
 		initPauseButton();
 		initFastForwardButton();
 		initSlowDownButton();
 	}
 
-	function initMPText():Void
-	{
-		mpText = new FlxText(FlxG.width * 0.01, FlxG.height * 0.05, 155); // x, y, width
-		mpText.setFormat(20, FlxColor.PINK, CENTER);
-		mpText.text = "MP: 10/10";
-		add(mpText);
-	}
-
 	function initPauseButton():Void
 	{
 		_pauseButton = new FlxButton(0, 0, "||", pause);
-		//_zombieButton.loadGraphic("assets/images/custom.png");
 
 		_pauseButton.scale.set(0.6,2);
 		_pauseButton.updateHitbox();
@@ -73,7 +66,6 @@ class SimulationHUD extends FlxGroup
 	function initFastForwardButton():Void
 	{
 		_fastForwardButton = new FlxButton(0, 0, ">>", fastForward);
-		//_fastForwardButton.loadGraphic("assets/images/custom.png");
 
 		_fastForwardButton.scale.set(0.6,2);
 		_fastForwardButton.updateHitbox();
@@ -92,7 +84,6 @@ class SimulationHUD extends FlxGroup
 	function initSlowDownButton():Void
 	{
 		_slowDownButton = new FlxButton(0, 0, "<<", slowDown);
-		//_slowDownButton.loadGraphic("assets/images/custom.png");
 
 		_slowDownButton.scale.set(0.6,2);
 		_slowDownButton.updateHitbox();
@@ -114,7 +105,6 @@ class SimulationHUD extends FlxGroup
 			return;
 
 		_pauseMenu.show(FlxG.timeScale);
-		FlxG.timeScale = 0;
 	}
 
 	function fastForward():Void
@@ -137,6 +127,7 @@ class SimulationHUD extends FlxGroup
 			FlxG.timeScale = _slowestSpeed;
 	}
 
+	// Open our pop-up window (game over, game won, etc.)
 	public function showEndLevelScreen(levelData:LevelData, mode:Int):Void
 	{
 		_endLevelMenu.show(levelData, mode, 1);

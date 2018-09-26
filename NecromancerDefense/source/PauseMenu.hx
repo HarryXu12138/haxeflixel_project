@@ -10,6 +10,9 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flash.system.System;
 
+/**
+	This class draws our pause menu.
+**/
 class PauseMenu extends FlxTypedGroup<FlxSprite>
 {
 	var _resumeButton : FlxButton;
@@ -38,6 +41,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
 		hide();
 	}
 
+	// Hide the menu
 	public function hide(): Void
 	{
 		_blackFilter.kill();
@@ -47,6 +51,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
         _quitButton.kill();
 	}
 
+	// Show the menu
     public function show(currentTime:Float): Void
 	{
 		_blackFilter.revive();
@@ -55,14 +60,15 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
         _returnToMain.revive();
         _quitButton.revive();
 
+		// Save the timescale before opening this window
 		_savedTime = currentTime;
+		FlxG.timeScale = 0;
 	}
 	
 	function initResumeButton():Void
 	{
 		_resumeButton = new FlxButton(0, 0, "Resume", resume);
-		//_resumeButton.loadGraphic("assets/images/custom.png");
-
+		
 		_resumeButton.scale.set(3.5,4.5);
 		_resumeButton.updateHitbox();
 		
@@ -81,8 +87,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
 	function initReturnToMainButton():Void
 	{
 		_returnToMain = new FlxButton(0, 0, "Main Menu", returnToMain);
-		//_returnToMain.loadGraphic("assets/images/custom.png");
-
+		
 		_returnToMain.scale.set(3.5,4.5);
 		_returnToMain.updateHitbox();
 		
@@ -101,8 +106,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
 	function initQuitButton():Void
 	{
 		_quitButton = new FlxButton(0, 0, "Quit", quit);
-		//_quitButton.loadGraphic("assets/images/custom.png");
-
+		
 		_quitButton.scale.set(3.5,4.5);
 		_quitButton.updateHitbox();
 		
@@ -127,6 +131,7 @@ class PauseMenu extends FlxTypedGroup<FlxSprite>
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.2, FlxG.width * 0.3, FlxG.height * 0.6, 10, 10, FlxColor.fromRGB(61, 57, 66, 256));
 	}
 
+	// Giant overlay that darkens the rest of the scene
 	function initBlackFilter():Void
 	{
 		_blackFilter = new FlxSprite();
