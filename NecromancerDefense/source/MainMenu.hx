@@ -9,7 +9,7 @@ class MainMenu extends FlxState
 {
     var _startButton:FlxButton;
 	var _background:FlxSprite;
-	
+
 	override public function create():Void
 	{
 		super.create();
@@ -23,7 +23,7 @@ class MainMenu extends FlxState
 
 		_startButton.scale.set(3,3);
 		_startButton.updateHitbox();
-		
+
 		_startButton.label.fieldWidth = _startButton.width;
         _startButton.label.alignment = "center";
 
@@ -37,7 +37,7 @@ class MainMenu extends FlxState
 	}
 
 	function initBackground(){
-		var background = new FlxSprite(0,20);
+		var background = new FlxSprite(0,0);
 		background.loadGraphic("assets/images/NecroDef.png");
 		add(background);
 	}

@@ -41,7 +41,7 @@ class ShowEnemySubState extends FlxSubState {
     }
 
     function initBackground():Void{
-        var background = new FlxSprite(0,20);
+        var background = new FlxSprite(0,0);
         background.alpha = 0.7;
 		background.loadGraphic("assets/images/NECROBG.png");
 		add(background);
