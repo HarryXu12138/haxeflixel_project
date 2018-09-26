@@ -19,6 +19,7 @@ class Skeleton extends Zombie
 		loadGraphic("assets/images/SKELETON_ALL.png", true, 280, 262);
 		scale.set(0.5, 0.5);
 		updateHitbox();
+		width = 60;
 		animation.add("walk", [0, 1, 2, 3, 4, 5, 6, 7], 12, true);
 		animation.add("attack", [8, 9, 10, 11, 12, 13, 14, 15, 16], 12, true);
 		animation.add("death", [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
