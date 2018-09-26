@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxState;
-import flixel.system.FlxAssets.FlxSoundAsset;
 import flixel.ui.FlxButton;
 import flixel.FlxSprite;
 import flixel.FlxG;
@@ -15,11 +14,9 @@ class MainMenu extends FlxState
 	{
 
 		super.create();
-		FlxG.sound.playMusic(AssetPaths.HF_Menu__mp3);
+		FlxG.sound.playMusic(AssetPaths.HF_Menu__ogg);
 		initBackground();
 		initStartButton();
-		//var menuTheme:FlxSoundAsset = new FlxSoundAsset();
-		//menuTheme.addSound(
 		
 	}
 

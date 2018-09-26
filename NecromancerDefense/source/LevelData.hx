@@ -1,6 +1,7 @@
 package;
 
 import GlobalValues;
+import flixel.system.FlxAssets.FlxSoundAsset;
 
 /**
  * ...
@@ -14,8 +15,9 @@ class LevelData
 	
 	private var _backgroundPath:String;
 	private var _tilePath:String;
+	private var _music:FlxSoundAsset;
 
-	public function new(level:Int, backgroundPath:String, tilePath:String)
+	public function new(level:Int, backgroundPath:String, tilePath:String, music:FlxSoundAsset)
 	{
 		humanUnits = new Array<Array<Int>>();
 		for (j in 0...GlobalValues.BOARD_HEIGHT) {
@@ -35,13 +37,14 @@ class LevelData
 		_level = level;
 		_backgroundPath = backgroundPath;
 		_tilePath = tilePath;
+		_music = music;
 	}
 
 	public function setHumanUnitAtPosition(x:Int, y:Int, unitNum:Int):Void
 	{
 		if (unitNum >= 3)
 		{
-			trace("Angry Unit Noises");
+			trace("Error: Unit " + unitNum + " does not exist");
 		}
 		else
 		{
@@ -105,5 +108,9 @@ class LevelData
 	{
 		return _tilePath;
 	}
-
+	public function getMusic():FlxSoundAsset
+	{
+		return _music;
+	}
+	
 }

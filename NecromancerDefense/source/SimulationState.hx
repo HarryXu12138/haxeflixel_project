@@ -43,6 +43,7 @@ class SimulationState extends FlxState
 	override public function create():Void
 	{
 		add(new Background(_levelData.getBackgroundPath()));
+		FlxG.sound.playMusic(_levelData.getMusic());
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
 		entityGroup = new FlxGroup();
