@@ -10,7 +10,7 @@ class Zombie extends Undead
 {
 	
 	static var SPEED:Int = 150;
-	static var STARTING_HEALTH:Int = 15;
+	static var STARTING_HEALTH:Int = 16;
 	static var ATTACK_DELAY:Int = 25;
 	
 	var _target:Entity;
@@ -24,6 +24,7 @@ class Zombie extends Undead
 		loadGraphic("assets/images/ZOMBIE_ALL.png", true, 215, 255);
 		scale.set(0.5, 0.5);
 		updateHitbox();
+		width = 50;
 		animation.add("walk", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 12, true);
 		animation.add("attack", [11, 12, 13, 14, 15], 12, true);
 		animation.add("death", [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
