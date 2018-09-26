@@ -77,6 +77,7 @@ class SimulationState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+        super.update(elapsed);
 		var undeadTroopsLeft:Bool = false;
 		for (i in 0..._lanes.length)
 		{
@@ -98,9 +99,6 @@ class SimulationState extends FlxState
 			}
 		}
 
-		if(undeadTroopsLeft == false)
-			gameOver();
-
 		if (checkWin())
 		{
 			if(_levelData.getLevel() == 2){
@@ -109,9 +107,10 @@ class SimulationState extends FlxState
 				goToCastle();
 			}
 		}
-		super.update(elapsed);
+        if(undeadTroopsLeft == false)
+            gameOver();
 	}
-	
+
 	// Player fails to beat level
 	private function gameOver():Void
 	{
