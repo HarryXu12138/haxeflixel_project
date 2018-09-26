@@ -27,9 +27,10 @@ class SimulationState extends FlxState
 
 	var _simulationHUD : SimulationHUD;
 	
-	private static var necroGirlX:Int = 50;
-	private static var necroGirlY:Int = 280;
-	
+	private var necroGirlX:Int = 30;
+	private var necroGirlY:Int = 180;
+	private var mainKnightX:Int = 1080;
+	private var mainKnightY:Int = 200;
 	public var beatenLanes:Array<Bool>;
 	
 	
@@ -45,6 +46,12 @@ class SimulationState extends FlxState
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
 		entityGroup = new FlxGroup();
+		
+		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
+		var mainKnight:MainKnight = new MainKnight(mainKnightX, mainKnightY);
+		entityGroup.add(necroGirl);
+		entityGroup.add(mainKnight);
+		
 		beatenLanes = [false, false, false, false, false];
 		for (y in 0...BOARD_HEIGHT)
 		{
@@ -53,7 +60,6 @@ class SimulationState extends FlxState
 			for (x in 0...BOARD_WIDTH)
 			{
 				_board[y].push(new Tile(_levelData.getTilePath()));
-				//_board[y][x].loadGraphic(_levelData.getTilePath());
 				_board[y][x].setPosition(TOP_LEFT_X + x * _board[y][x].width, TOP_LEFT_Y + y * _board[y][x].height);
 				add(_board[y][x]);
 			}
@@ -62,37 +68,60 @@ class SimulationState extends FlxState
 		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
-		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
-		entityGroup.add(necroGirl);
+		
 		super.create();
 	}
 
 	override public function update(elapsed:Float):Void
 	{
+		var undeadTroopsLeft:Bool = false;
 		for (i in 0..._lanes.length)
 		{
 			var lane:List<Entity> = _lanes[i];
 			for (entity in lane)
 			{
+
 				entity.act(lane);
 				if (!entity.alive)
 				{
 					lane.remove(entity);
 				}
-				else if (Std.is(entity, Undead) && entity.x >= 1280){
-					beatenLanes[i] = true;
+				else if (Std.is(entity, Undead)){
+					if(entity.x >= 1280)
+						beatenLanes[i] = true;
+					else
+						undeadTroopsLeft = true;
 				}
 			}
 		}
+
+		if(undeadTroopsLeft == false)
+			gameOver();
+
 		if (checkWin())
 		{
 			if(_levelData.getLevel() == 2){
-				FlxG.switchState(new MainMenu());
+				gameWon();
 			}else{
-				FlxG.switchState(new DeploymentState(LevelFactory.getNextLevel(_levelData.getLevel())));
+				goToCastle();
 			}
 		}
 		super.update(elapsed);
+	}
+
+	private function gameOver():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 0);
+	}
+
+	private function goToCastle():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 1);
+	}
+
+	private function gameWon():Void
+	{
+		_simulationHUD.showEndLevelScreen(_levelData, 2);
 	}
 	
 	private function checkWin():Bool
@@ -150,5 +179,4 @@ class SimulationState extends FlxState
 			}
 		}
 	}
-
 }

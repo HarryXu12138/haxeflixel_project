@@ -10,15 +10,20 @@ import flixel.util.FlxColor;
 class Soldier extends Human 
 {
 	
-	static var STARTING_HEALTH:Int = 4;
-	static var ATTACK_DELAY:Int = 12;
+	static var STARTING_HEALTH:Int = 9;
+	static var ATTACK_DELAY:Int = 21;
 	
 	var _targets:List<Entity>;
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(48, 96, FlxColor.BLUE);
+		loadGraphic("assets/images/TANK_ALL.png", true, 220, 255);
+		scale.set(0.5, 0.5);
+		updateHitbox();
+		animation.add("attack", [4, 5, 6, 7], 12, true);
+		animation.add("stand", [0, 1, 2, 3], 12, true);
+		animation.add("death", [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], 12, false);
 		_hp = STARTING_HEALTH;
 		attackDelay = ATTACK_DELAY;
 		_targets = new List<Entity>();
@@ -33,6 +38,9 @@ class Soldier extends Human
 			
 			if (_fighting)
 			{
+				if(animation.name != "attack"){
+					animation.play("attack");
+				}
 				fight(_targets, 1);
 			}
 			
@@ -56,6 +64,7 @@ class Soldier extends Human
 			{
 				_attack_frame = 0;
 				_fighting = false;
+				animation.play("stand");
 			}
 		}
 	}
