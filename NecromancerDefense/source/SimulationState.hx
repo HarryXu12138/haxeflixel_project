@@ -103,17 +103,20 @@ class SimulationState extends FlxState
 		}
 		super.update(elapsed);
 	}
-
+	
+	// Player fails to beat level
 	private function gameOver():Void
 	{
 		_simulationHUD.showEndLevelScreen(_levelData, 0);
 	}
 
+	// Passes level 1 -> go on to level 2
 	private function goToCastle():Void
 	{
 		_simulationHUD.showEndLevelScreen(_levelData, 1);
 	}
 
+	// Passed level 2 -> Player wins the game
 	private function gameWon():Void
 	{
 		_simulationHUD.showEndLevelScreen(_levelData, 2);

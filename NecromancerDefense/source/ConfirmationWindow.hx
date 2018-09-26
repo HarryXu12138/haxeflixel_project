@@ -10,6 +10,9 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flash.system.System;
 
+/*
+	This class draws our confirmation window (pop-ups when player still has unspent MP.)
+*/
 class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 {
     var _levelData : LevelData;
@@ -79,7 +82,6 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 	function initYesButton():Void
 	{
 		_yesButton = new FlxButton(0, 0, "Yes", yesAction);
-		//_yesButton.loadGraphic("assets/images/custom.png");
 
 		_yesButton.scale.set(1.25,3);
 		_yesButton.updateHitbox();
@@ -99,7 +101,6 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 	function initNoButton():Void
 	{
 		_noButton = new FlxButton(0, 0, "No", noAction);
-		//_noButton.loadGraphic("assets/images/custom.png");
 
 		_noButton.scale.set(1.25,3);
 		_noButton.updateHitbox();
@@ -124,7 +125,8 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.37, FlxG.height * 0.34, FlxG.width * 0.3, FlxG.height * 0.4, 10, 10, FlxColor.fromRGB(61, 57, 66, 256));
 	}
-
+	
+	// Giant overlay that darkens the rest of the scene
 	function initBlackFilter():Void
 	{
 		_blackFilter = new FlxSprite();

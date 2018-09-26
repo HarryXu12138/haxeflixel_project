@@ -12,6 +12,9 @@ import flixel.group.FlxGroup;
 // Tooltips
 import flixel.addons.ui.FlxUIButton;
 
+/*
+	This class draws our deployment menu UI elements
+*/
 class DeploymentMenu extends FlxGroup
 {
     private var _confirmationWindow : ConfirmationWindow;
@@ -64,7 +67,6 @@ class DeploymentMenu extends FlxGroup
 	function initHelpButton():Void
 	{
 		_helpButton = new FlxButton(0, 0, "?", help);
-		//_helpButton.loadGraphic("assets/images/custom.png");
 
 		_helpButton.scale.set(0.6,2);
 		_helpButton.updateHitbox();
@@ -83,7 +85,6 @@ class DeploymentMenu extends FlxGroup
 	function initPauseButton():Void
 	{
 		_pauseButton = new FlxButton(0, 0, "||", pause);
-		//_zombieButton.loadGraphic("assets/images/custom.png");
 
 		_pauseButton.scale.set(0.6,2);
 		_pauseButton.updateHitbox();
@@ -108,7 +109,6 @@ class DeploymentMenu extends FlxGroup
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.025, FlxG.height * 0.1, FlxG.width * 0.17, FlxG.height * 0.85, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
 	}
 
-
 	function initMPText():Void
 	{
 		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
@@ -132,7 +132,6 @@ class DeploymentMenu extends FlxGroup
 	function initZombieButton():Void
 	{
 		zombieButton = new FlxUIButton(0, 0, "Zombie", selectZombie);
-		//zombieButton.loadGraphic("assets/images/custom.png");
 
 		zombieButton.scale.set(2,6);
 		zombieButton.updateHitbox();
@@ -152,7 +151,6 @@ class DeploymentMenu extends FlxGroup
 	function initSkeletonButton():Void
 	{
 		skeletonButton = new FlxUIButton(0, 0, "Skeleton", selectSkeleton);
-		//skeletonButton.loadGraphic("assets/images/custom.png");
 
 		skeletonButton.scale.set(2,6);
 		skeletonButton.updateHitbox();
@@ -169,11 +167,9 @@ class DeploymentMenu extends FlxGroup
 		add(skeletonButton);
 	}
 
-
 	function initStartButton():Void
 	{
 		_startRoundButton = new FlxButton(0, 0, "Start Round", startRound);
-		//_startRoundButton.loadGraphic("assets/images/custom.png");
 
 		_startRoundButton.scale.set(2.5,3.5);
 		_startRoundButton.updateHitbox();

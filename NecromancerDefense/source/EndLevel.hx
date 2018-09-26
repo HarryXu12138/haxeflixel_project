@@ -10,6 +10,9 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flash.system.System;
 
+/**
+	Draws our pop-up window (game over, game won, etc.)
+**/
 class EndLevel extends FlxTypedGroup<FlxSprite>
 {
     var _levelData : LevelData;
@@ -42,6 +45,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 		hide();
 	}
 
+	// Hide the window
 	public function hide():Void
 	{
 		_blackFilter.kill();
@@ -52,6 +56,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 		_okButton.kill();
 	}
 
+	// Show the window and determine what context to show in our menu
     public function show(levelData:LevelData, mode:Int, currentTime:Float):Void
 	{
 		if(mode == 0)
@@ -93,7 +98,6 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 	function initOKButton():Void
 	{
 		_okButton = new FlxButton(0, 0, "OK", okAction);
-		//_okButton.loadGraphic("assets/images/custom.png");
 
 		_okButton.scale.set(1.3,3);
 		_okButton.updateHitbox();
@@ -113,7 +117,6 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 	function initMainMenuButton():Void
 	{
 		_mainMenuButton = new FlxButton(0, 0, "Main Menu", mainMenu);
-		//_mainMenuButton.loadGraphic("assets/images/custom.png");
 
 		_mainMenuButton.scale.set(1.8,3);
 		_mainMenuButton.updateHitbox();
@@ -133,7 +136,6 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 	function initQuitButton():Void
 	{
 		_quitButton = new FlxButton(0, 0, "Quit", quitAction);
-		//_quitButton.loadGraphic("assets/images/custom.png");
 
 		_quitButton.scale.set(1.8,3);
 		_quitButton.updateHitbox();
@@ -159,6 +161,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.32, FlxG.height * 0.3, FlxG.width * 0.37, FlxG.height * 0.45, 10, 10, FlxColor.fromRGB(61, 57, 66, 256));
 	}
 
+	// Giant overlay that darkens the rest of the scene
 	function initBlackFilter():Void
 	{
 		_blackFilter = new FlxSprite();
