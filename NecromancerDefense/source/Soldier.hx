@@ -10,7 +10,7 @@ import flixel.util.FlxColor;
 class Soldier extends Human 
 {
 	
-	static var STARTING_HEALTH:Int = 10;
+	static var STARTING_HEALTH:Int = 8;
 	static var ATTACK_DELAY:Int = 21;
 	
 	var _targets:List<Entity>;
