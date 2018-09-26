@@ -55,7 +55,7 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
     public function show(levelData:LevelData, mode:Int, currentTime:Float):Void
 	{
 		if(mode == 0)
-			_displayText.text = "- Game Over - \n\nYour troops have been defeated...";
+			_displayText.text = "- Game Over - \n\nYou failed to capture most of the lanes...";
 		else if(mode == 1)
 			_displayText.text = "- You Won -\n\nLaunching our next attack at the castle!";
 		else if (mode == 2)

@@ -71,14 +71,14 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 
 		_bodyText = new FlxText(FlxG.width * 0.3, FlxG.height * 0.3, 600); // x, y, width
 		_bodyText.setFormat(14, FlxColor.WHITE, LEFT);
-		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. Then when you're ready to attack, click \"start round\".";
+		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. When you're ready to attack, click \"start round\". To win, you must capture at least 3 out of the 5 lanes. To capture a lane, must defeat all the enemies in a lane.";
 		add(_bodyText);
 	}
 
     function initPicture():Void{
-        _picture = new FlxSprite(FlxG.width * 0.13, FlxG.height * 0.25);
+        _picture = new FlxSprite(FlxG.width * 0.11, FlxG.height * 0.27);
 		_picture.loadGraphic("assets/images/tutorial1.png");
-        _picture.scale.set(0.5,0.5);
+        _picture.scale.set(0.47,0.47);
 		add(_picture);
     }
 
@@ -96,7 +96,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 		_closeButton.label.size = 15;
 		_closeButton.label.offset.y -= 8;
 
-		_closeButton.x = FlxG.width * 0.71;
+		_closeButton.x = FlxG.width * 0.7;
 		_closeButton.y = FlxG.height * 0.78;
 
 		add(_closeButton);
