@@ -68,11 +68,14 @@ class EndLevel extends FlxTypedGroup<FlxSprite>
         _displayText.revive();
 
 		if(mode == 0 || mode == 2){
+			_okButton.kill();
 			_mainMenuButton.revive();
 			_quitButton.revive();
 		}
 		else{
 			_okButton.revive();
+			_mainMenuButton.kill();
+			_quitButton.kill();
 		}
 
         _savedTime = currentTime;
