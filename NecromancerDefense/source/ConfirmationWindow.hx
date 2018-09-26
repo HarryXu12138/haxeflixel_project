@@ -18,6 +18,7 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
     var _levelData : LevelData;
 
     var _displayText : FlxText;
+	var _manaIcon : FlxSprite;
 
 	var _yesButton : FlxButton;
 	var _noButton : FlxButton;
@@ -48,6 +49,7 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 		_blackFilter.kill();
 		_panel.kill();
         _displayText.kill();
+		_manaIcon.kill();
         _yesButton.kill();
         _noButton.kill();
 	}
@@ -64,6 +66,7 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 		_blackFilter.revive();
 		_panel.revive();
         _displayText.revive();
+		_manaIcon.revive();
         _yesButton.revive();
         _noButton.revive();
 
@@ -75,8 +78,13 @@ class ConfirmationWindow extends FlxTypedGroup<FlxSprite>
 	{
 		_displayText = new FlxText(FlxG.width * 0.4, FlxG.height * 0.4, 300); // x, y, width
 		_displayText.setFormat(20, FlxColor.WHITE, CENTER);
-		_displayText.text = "You still have unspent MP, are you sure you want to continue?";
+		_displayText.text = "You still have unspent   , are you sure you want to continue?";
 		add(_displayText);
+
+		_manaIcon = new FlxSprite(FlxG.width * 0.4, FlxG.height * 0.4);
+		_manaIcon.loadGraphic("assets/images/Mana.png");
+        _manaIcon.scale.set(0.35,0.35);
+		add(_manaIcon);
 	}
 
 	function initYesButton():Void
