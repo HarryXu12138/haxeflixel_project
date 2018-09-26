@@ -4,10 +4,6 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 
 
-/**
- * ...
- * @author Jared Okun
- */
 class Human extends Entity 
 {
 	
@@ -18,7 +14,7 @@ class Human extends Entity
 	
 	override public function overlapInLane(other:Entity):Bool
 	{
-		
+		//Humans can only overlap with enemies
 		return super.overlapInLane(other) && Std.is(other, Undead);
 	}
 	

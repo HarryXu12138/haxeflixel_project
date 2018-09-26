@@ -31,13 +31,14 @@ class Zombie extends Undead
 		animation.play("walk");
 		movementSpeed = SPEED;
 		velocity.set(movementSpeed, 0);
-		attackDelay = ATTACK_DELAY;
+		_attackDelay = ATTACK_DELAY;
 		_hp = STARTING_HEALTH;
 	}
 	
 	
 	override public function act(lane:List<Entity>):Void
 	{
+		//Move until touching enemy, then start attacking
 		super.act(lane);
 		if (alive)
 		{

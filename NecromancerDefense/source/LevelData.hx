@@ -72,7 +72,7 @@ class LevelData
 	{
 		if (unitNum >= 3)
 		{
-			trace("Angry Zombie Noises");
+			trace("Error: Undead " + unitNum + " does not exist");
 		}
 		else
 		{

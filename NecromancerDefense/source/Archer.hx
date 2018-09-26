@@ -26,12 +26,13 @@ class Archer extends Human
 		animation.add("stand", [0, 1, 2, 3, 4, 5, 6], 12, true);
 		animation.add("death", [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], 12, false);
 		_hp = STARTING_HEALTH;
-		attackDelay = ATTACK_DELAY;
+		_attackDelay = ATTACK_DELAY;
 		_entityGroup = entityGroup;
 	}
 	
 	override public function act(lane:List<Entity>):Void
 	{
+		//Fires an arrow if there are undead in the lane
 		super.act(lane);
 		if (laneContainsUndead(lane) && alive)
 		{
@@ -40,7 +41,7 @@ class Archer extends Human
 				animation.play("attack");
 			}
 			_attack_frame++;
-			if (_attack_frame == attackDelay)
+			if (_attack_frame == _attackDelay)
 			{
 				fireArrow(lane);
 				_attack_frame = 0;
