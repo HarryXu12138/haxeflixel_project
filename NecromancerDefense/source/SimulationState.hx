@@ -33,6 +33,8 @@ class SimulationState extends FlxState
 	private var mainKnightY:Int = 200;
 	public var beatenLanes:Array<Bool>;
 
+    private var showGoToCastleWindow:Bool = false;
+
 
 	public function new(newLevelData:LevelData)
 	{
@@ -103,29 +105,39 @@ class SimulationState extends FlxState
 		{
 			if(_levelData.getLevel() == 2){
 				gameWon();
-			}else{
+			} else {
 				goToCastle();
 			}
 		}
 		super.update(elapsed);
 	}
-
+	
+	// Player fails to beat level
 	private function gameOver():Void
 	{
+        if (showGoToCastleWindow) return;
         var endState:GameEndState = new GameEndState();
+        // Have to first update win/lose situation than init the background image
         endState.updateWinLoseStatus(0);
+        endState.initBackground();
 		FlxG.switchState(endState);
 	}
 
+	// Passes level 1 -> go on to level 2
 	private function goToCastle():Void
 	{
+        showGoToCastleWindow = true;
 		_simulationHUD.showEndLevelScreen(_levelData, 1);
 	}
 
+	// Passed level 2 -> Player wins the game
 	private function gameWon():Void
 	{
+        if (showGoToCastleWindow) return;
         var endState:GameEndState = new GameEndState();
+        // Have to first update win/lose situation than init the background image
         endState.updateWinLoseStatus(1);
+        endState.initBackground();
 		FlxG.switchState(endState);
 	}
 

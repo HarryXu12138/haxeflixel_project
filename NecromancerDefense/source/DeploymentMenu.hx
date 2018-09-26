@@ -12,6 +12,9 @@ import flixel.group.FlxGroup;
 // Tooltips
 import flixel.addons.ui.FlxUIButton;
 
+/*
+	This class draws our deployment menu UI elements
+*/
 class DeploymentMenu extends FlxGroup
 {
     private var _confirmationWindow : ConfirmationWindow;
@@ -21,6 +24,7 @@ class DeploymentMenu extends FlxGroup
 
 	var _panel : FlxSprite;
 	var mpText : FlxText;
+	var _manaIcon : FlxSprite;
 
 	var _pauseButton : FlxButton;
 	var _pauseMenu : PauseMenu;
@@ -64,7 +68,6 @@ class DeploymentMenu extends FlxGroup
 	function initHelpButton():Void
 	{
 		_helpButton = new FlxButton(0, 0, "?", help);
-		//_helpButton.loadGraphic("assets/images/custom.png");
 
 		_helpButton.scale.set(0.6,2);
 		_helpButton.updateHitbox();
@@ -83,7 +86,6 @@ class DeploymentMenu extends FlxGroup
 	function initPauseButton():Void
 	{
 		_pauseButton = new FlxButton(0, 0, "||", pause);
-		//_zombieButton.loadGraphic("assets/images/custom.png");
 
 		_pauseButton.scale.set(0.6,2);
 		_pauseButton.updateHitbox();
@@ -108,13 +110,17 @@ class DeploymentMenu extends FlxGroup
 		FlxSpriteUtil.drawRoundRect(_panel, FlxG.width * 0.025, FlxG.height * 0.1, FlxG.width * 0.17, FlxG.height * 0.85, 10, 10, FlxColor.fromRGB(56, 52, 50, 200));
 	}
 
-
 	function initMPText():Void
 	{
-		mpText = new FlxText(FlxG.width * 0.05, FlxG.height * 0.2, 155); // x, y, width
+		mpText = new FlxText(FlxG.width * 0.06, FlxG.height * 0.23, 155); // x, y, width
 		mpText.setFormat(20, FlxColor.WHITE, CENTER);
-		mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
+		mpText.text = _manaCurrent + "/" + _manaMax;
 		add(mpText);
+
+		_manaIcon = new FlxSprite(FlxG.width * 0.05, FlxG.height * 0.19);
+		_manaIcon.loadGraphic("assets/images/Mana.png");
+        _manaIcon.scale.set(0.47,0.47);
+		add(_manaIcon);
 	}
 
     public function MPTextRed():Void {
@@ -126,13 +132,12 @@ class DeploymentMenu extends FlxGroup
     }
 
     public function updateMPText():Void {
-        mpText.text = "MP: " + _manaCurrent + "/" + _manaMax;
+        mpText.text = _manaCurrent + "/" + _manaMax;
     }
 
 	function initZombieButton():Void
 	{
 		zombieButton = new FlxUIButton(0, 0, "Zombie", selectZombie);
-		//zombieButton.loadGraphic("assets/images/custom.png");
 
 		zombieButton.scale.set(2,6);
 		zombieButton.updateHitbox();
@@ -152,7 +157,6 @@ class DeploymentMenu extends FlxGroup
 	function initSkeletonButton():Void
 	{
 		skeletonButton = new FlxUIButton(0, 0, "Skeleton", selectSkeleton);
-		//skeletonButton.loadGraphic("assets/images/custom.png");
 
 		skeletonButton.scale.set(2,6);
 		skeletonButton.updateHitbox();
@@ -169,11 +173,9 @@ class DeploymentMenu extends FlxGroup
 		add(skeletonButton);
 	}
 
-
 	function initStartButton():Void
 	{
 		_startRoundButton = new FlxButton(0, 0, "Start Round", startRound);
-		//_startRoundButton.loadGraphic("assets/images/custom.png");
 
 		_startRoundButton.scale.set(2.5,3.5);
 		_startRoundButton.updateHitbox();
