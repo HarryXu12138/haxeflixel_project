@@ -26,32 +26,32 @@ class SimulationState extends FlxState
 	static var zombieOffsetX:Int = -744;
 
 	var _simulationHUD : SimulationHUD;
-	
+
 	private var necroGirlX:Int = 30;
 	private var necroGirlY:Int = 180;
 	private var mainKnightX:Int = 1080;
 	private var mainKnightY:Int = 200;
 	public var beatenLanes:Array<Bool>;
-	
-	
+
+
 	public function new(newLevelData:LevelData)
 	{
 		_levelData = newLevelData;
 		super();
 	}
-	
+
 	override public function create():Void
 	{
 		add(new Background(_levelData.getBackgroundPath()));
 		_board = new Array<Array<Tile>>();
 		_lanes = new Array<List<Entity>>();
 		entityGroup = new FlxGroup();
-		
+
 		var necroGirl:NecroGirl = new NecroGirl(necroGirlX, necroGirlY);
 		var mainKnight:MainKnight = new MainKnight(mainKnightX, mainKnightY);
 		entityGroup.add(necroGirl);
 		entityGroup.add(mainKnight);
-		
+
 		beatenLanes = [false, false, false, false, false];
 		for (y in 0...BOARD_HEIGHT)
 		{
@@ -68,7 +68,7 @@ class SimulationState extends FlxState
 		add(entityGroup);
 		_simulationHUD = new SimulationHUD();
 		add(_simulationHUD);
-		
+
 		super.create();
 	}
 
@@ -111,7 +111,9 @@ class SimulationState extends FlxState
 
 	private function gameOver():Void
 	{
-		_simulationHUD.showEndLevelScreen(_levelData, 0);
+        var endState:GameEndState = new GameEndState();
+        endState.updateWinLoseStatus(0);
+		FlxG.switchState(endState);
 	}
 
 	private function goToCastle():Void
@@ -121,9 +123,11 @@ class SimulationState extends FlxState
 
 	private function gameWon():Void
 	{
-		_simulationHUD.showEndLevelScreen(_levelData, 2);
+        var endState:GameEndState = new GameEndState();
+        endState.updateWinLoseStatus(1);
+		FlxG.switchState(endState);
 	}
-	
+
 	private function checkWin():Bool
 	{
 		var amount:Int = 0;
@@ -136,7 +140,7 @@ class SimulationState extends FlxState
 		}
 		return amount >= 3;
 	}
-	
+
 	private function placeUnits():Void
 	{
 		if (_levelData.getHumanPlacementHeight() != _levelData.getUndeadPlacementHeight()) return;
@@ -158,21 +162,21 @@ class SimulationState extends FlxState
 					_lanes[y].add(unit);
 				}
 			}
-			
+
 			for (x in 0..._levelData.getUndeadPlacementWidth())
 			{
 				var unit:Undead;
 				if (_levelData.getUndeadUnitAtPosition(x, y) == 1)
 				{
 					unit = new Zombie(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
-					
+
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
 				else if (_levelData.getUndeadUnitAtPosition(x, y) == 2)
 				{
 					unit = new Skeleton(zombieOffsetX + x * _board[0][0].width, undeadOffsetY + y * _board[0][0].height);
-					
+
 					entityGroup.add(unit);
 					_lanes[y].add(unit);
 				}
