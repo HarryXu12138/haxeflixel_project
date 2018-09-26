@@ -117,7 +117,7 @@ class DeploymentState extends FlxUIState
 	}
 
     function initBackground():Void{
-        var background = new FlxSprite(0,20);
+        var background = new FlxSprite(0,0);
         background.alpha = 0.7;
 		background.loadGraphic(levelData.getBackgroundPath());
 		add(background);
