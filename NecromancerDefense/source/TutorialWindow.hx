@@ -71,7 +71,7 @@ class TutorialWindow extends FlxTypedGroup<FlxSprite>
 
 		_bodyText = new FlxText(FlxG.width * 0.3, FlxG.height * 0.3, 600); // x, y, width
 		_bodyText.setFormat(14, FlxColor.WHITE, LEFT);
-		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. When you're ready to attack, click \"start round\". To win, you must capture at least 3 out of the 5 lanes. To capture a lane, must defeat all the enemies in a lane.";
+		_bodyText.text = "Strategically raise and command your monsters to attack enemy troops. Select a monster and place it the on the board. When you're ready to attack, click \"start round\". To win, you must capture at least 3 out of the 5 lanes. To capture a lane, you must defeat all the enemies in a lane.";
 		add(_bodyText);
 	}
 
