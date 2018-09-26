@@ -42,7 +42,7 @@ class GameEndState extends FlxState {
         if (win)
 		{
 			background.loadGraphic("assets/images/Victory.png");
-			
+			FlxG.sound.playMusic(AssetPaths.HF_Win__ogg, 1, false);
 		}
         else  
 		{
